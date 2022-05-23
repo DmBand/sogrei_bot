@@ -31,46 +31,6 @@ async def get_menu(message: types.Message):
                          reply_markup=keyboard)
 
 
-@dp.message_handler(Text(equals='Пенопласт'))
-async def get_ppt_price(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1м3: 💵\n\n'
-    for ppt in PPT_PRICES:
-        answer += f'🔸 {ppt}: {"%.2f" % PPT_PRICES[ppt]} руб.\n'
-    keyboard.add('Меню')
-    await message.answer(text=answer, reply_markup=keyboard)
-
-
-# @dp.message_handler(Text(equals='Экструзия'))
-# async def get_extrusion(message: types.Message):
-#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     answer = '💵 Цена за 1 лист (1180*580мм): 💵\n\n'
-#     for ext in EXTRUSION_PRICES:
-#         answer += f'🔸 {ext}: {"%.2f" % EXTRUSION_PRICES[ext]} руб.\n'
-#     keyboard.add('Меню')
-#     await message.answer(text=answer, reply_markup=keyboard)
-
-
-@dp.message_handler(Text(equals='Сетка штукатурная'))
-async def get_extrusion(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1м2: 💵\n\n'
-    for mesh in FIBERGLASS_MESH:
-        answer += f'🔸 {mesh}: {"%.2f" % FIBERGLASS_MESH[mesh]} руб.\n'
-    keyboard.add('Меню')
-    await message.answer(text=answer, reply_markup=keyboard)
-
-
-@dp.message_handler(Text(equals='OSB-плиты влагостойкие'))
-async def get_extrusion(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1 лист: 💵\n\n'
-    for osb in OSB_PLATE:
-        answer += f'🔸 {osb}: {"%.2f" % OSB_PLATE[osb]} руб.\n'
-    keyboard.add('Меню')
-    await message.answer(text=answer, reply_markup=keyboard)
-
-
 @dp.message_handler(Text(equals='Гипсокартон'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -118,6 +78,46 @@ async def get_extrusion(message: types.Message):
         answer += f'🔸 {glu}: {"%.2f" % GLUES[glu]} руб.\n'
     keyboard.add('Меню')
     await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='Пенопласт'))
+async def get_ppt_price(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1м3: 💵\n\n'
+    for ppt in PPT_PRICES:
+        answer += f'🔸 {ppt}: {"%.2f" % PPT_PRICES[ppt]} руб.\n'
+    keyboard.add('Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='Сетка штукатурная'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1м2: 💵\n\n'
+    for mesh in FIBERGLASS_MESH:
+        answer += f'🔸 {mesh}: {"%.2f" % FIBERGLASS_MESH[mesh]} руб.\n'
+    keyboard.add('Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='OSB-плиты влагостойкие'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1 лист: 💵\n\n'
+    for osb in OSB_PLATE:
+        answer += f'🔸 {osb}: {"%.2f" % OSB_PLATE[osb]} руб.\n'
+    keyboard.add('Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+# @dp.message_handler(Text(equals='Экструзия'))
+# async def get_extrusion(message: types.Message):
+#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     answer = '💵 Цена за 1 лист (1180*580мм): 💵\n\n'
+#     for ext in EXTRUSION_PRICES:
+#         answer += f'🔸 {ext}: {"%.2f" % EXTRUSION_PRICES[ext]} руб.\n'
+#     keyboard.add('Меню')
+#     await message.answer(text=answer, reply_markup=keyboard)
 
 
 if __name__ == '__main__':
