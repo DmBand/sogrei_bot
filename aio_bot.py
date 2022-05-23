@@ -74,10 +74,11 @@ async def get_extrusion(message: types.Message):
 @dp.message_handler(Text(equals='Гипсокартон'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1 лист: 💵\n\n'
+    btns = ['🔥 Огнеупорный', '💧 Влагостойкий', '✨ Обычный', 'Меню']
+    answer = 'Выберите тип'
     for osb in OSB_PLATE:
         answer += f'🔸 {osb}: {"%.2f" % OSB_PLATE[osb]} руб.\n'
-    keyboard.add('Меню')
+    keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
 
 
