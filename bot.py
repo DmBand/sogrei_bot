@@ -29,8 +29,8 @@ def handle_text(message):
         return start(message)
     elif message.text.strip().lower() == 'пенопласт':
         answer = 'Цена за м3:\n\n'
-        for ppt in PPT_PRICES:
-            answer += f'{ppt}: {PPT_PRICES[ppt]} руб.\n'
+        for ppt in PPT_PRICE_PER_CUBIC_METER:
+            answer += f'{ppt}: {PPT_PRICE_PER_CUBIC_METER[ppt]} руб.\n'
         markup.add(menu_btn())
 
     elif message.text.strip().lower() == 'экструзия':

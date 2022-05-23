@@ -8,21 +8,24 @@ categories = [
 
 # Гипсокартон
 DRYWALL = {
-    'Огнеупорный': {
-        '12,5мм тип DF, Кнауф, Беларусь': 23.04
-    },
-    'Влагостойкий': {
-        '9,5мм Danogips, Беларусь': 22.05,
-        '12,5мм Danogips, Беларусь': 23.10,
-        '9,5мм Кнауф, РФ': 23.10,
-        '12,5мм Кнауф, РФ': 22.96,
-    },
-    'Обычный': {
-        '9.5мм Danogips, Беларусь': 14.81,
-        '12.5мм Danogips smart, Беларусь': 18.44,
-        '9.5мм стандарт Кнауф, РФ': 17.79,
-        '12.5мм стандарт Кнауф, РФ': 18.87
-    }
+    'Огнеупорный':
+        {
+            '12,5мм тип DF, Кнауф, Беларусь': 23.04
+        },
+    'Влагостойкий':
+        {
+            '9,5мм Danogips, Беларусь': 22.05,
+            '12,5мм Danogips, Беларусь': 23.10,
+            '9,5мм Кнауф, РФ': 23.10,
+            '12,5мм Кнауф, РФ': 22.96,
+        },
+    'Обычный':
+        {
+            '9.5мм Danogips, Беларусь': 14.81,
+            '12.5мм Danogips smart, Беларусь': 18.44,
+            '9.5мм стандарт Кнауф, РФ': 17.79,
+            '12.5мм стандарт Кнауф, РФ': 18.87
+        }
 }
 
 GLUES = {
@@ -32,7 +35,7 @@ GLUES = {
 }
 
 # Цены на ППТ
-PPT_PRICES = {
+PPT_PRICE_PER_CUBIC_METER = {
     'ППТ-10-A': 171.00,
     'ППТ-10-Б': 193.00,
     'ППТ-15-А': 213.00,
@@ -43,6 +46,115 @@ PPT_PRICES = {
     'ППТ-25-Б': 340.00,
     'ППТ-35-А': 423.00,
     'ППТ-35-Б': 466.00
+}
+
+PPT_PRICE_FOR_ONE = {
+    'ППТ-10-А':
+        {
+            '1000*500мм':
+                {
+                    '2см': 0.01 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '3см': 0.015 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '10см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                },
+            '1000*1000мм':
+                {
+                    '2см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '3см': 0.03 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '5см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                    '10см': 0.1 * PPT_PRICE_PER_CUBIC_METER['ППТ-10-A'],
+                }
+        },
+    'ППТ-15-А':
+        {
+            '1000*500мм':
+                {
+                    '2см': 0.01 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '3см': 0.015 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '10см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                },
+            '1000*1000мм':
+                {
+                    '2см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '3см': 0.03 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '5см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '7см': 0.07 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                    '10см': 0.1 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-А'],
+                }
+        },
+    'ППТ-15-Б':
+        {
+            '1000*500мм':
+                {
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-15-Б'],
+                },
+        },
+    'ППТ-20-А':
+        {
+            '1000*500мм':
+                {
+                    '1см': 0.005 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '2см': 0.01 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '3см': 0.015 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '10см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                },
+            '1000*1000мм':
+                {
+                    '2см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '3см': 0.03 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '5см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                    '10см': 0.1 * PPT_PRICE_PER_CUBIC_METER['ППТ-20-А'],
+                }
+        },
+    'ППТ-25-А':
+        {
+            '1000*500мм':
+                {
+                    '1см': 0.005 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '2см': 0.01 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '3см': 0.015 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '4см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '7см': 0.035 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '8см': 0.04 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '10см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                },
+            '1000*1000мм':
+                {
+                    '2см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '3см': 0.03 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '5см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                    '10см': 0.1 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-А'],
+                }
+        },
+    'ППТ-25-Б':
+        {
+            '1000*500мм':
+                {
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-25-Б'],
+                },
+        },
+    'ППТ-35-А':
+        {
+            '1000*500мм':
+                {
+                    '1см': 0.005 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '2см': 0.01 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '3см': 0.015 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '5см': 0.025 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '10см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                },
+            '1000*1000мм':
+                {
+                    '2см': 0.02 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '3см': 0.03 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '5см': 0.05 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                    '10см': 0.1 * PPT_PRICE_PER_CUBIC_METER['ППТ-35-А'],
+                }
+        },
 }
 
 # Сетка штукатурная
