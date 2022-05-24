@@ -1,3 +1,4 @@
+import json
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
@@ -92,81 +93,59 @@ async def get_ppt_price(message: types.Message):
 async def get_ppt_price(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1м3: 💵\n\n'
-    for ppt in PPT_PRICE_PER_CUBIC_METER:
-        answer += f'🔸 {ppt}: {"%.2f" % PPT_PRICE_PER_CUBIC_METER[ppt]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
+        for ppt in data:
+            answer += f'🔸 {ppt}: {"%.2f" % data[ppt]} руб.\n'
     keyboard.add('📃 Цена за 1 лист', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
 
-@dp.message_handler(Text(equals='📃 Цена за 1 лист'))
-async def get_ppt_price(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '📏 Размер листа: 1000*500мм:\n'
-    answer += f'\nПлотность: 10-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 15-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 15-Б\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-15-Б']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-Б']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 20-А\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 25-А\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 25-Б\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-25-Б']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-Б']['1000*500мм'][p]} руб.\n"
-    answer += f'\nПлотность: 35-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм'][p]} руб.\n"
-
-    answer += '\n📏 Размер листа: 1000x1000мм:\n'
-    answer += f'\nПлотность: 10-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм'][p]} руб.\n"
-    answer += f'\nПлотность: 15-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*1000мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*1000мм'][p]} руб.\n"
-    answer += f'\nПлотность: 15-Б\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*1000мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*1000мм'][p]} руб.\n"
-    answer += f'\nПлотность: 25-А\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*1000мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*1000мм'][p]} руб.\n"
-    answer += f'\nПлотность: 35-A\n\n'
-    for p in PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*1000мм']:
-        answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*1000мм'][p]} руб.\n"
-
-    keyboard.add('📦 Цена за 1м3', '✳ Меню')
-    await message.answer(text=answer, reply_markup=keyboard)
-
-
-# @dp.message_handler(Text(equals='⌨ Расчет ППТ'))
+# @dp.message_handler(Text(equals='📃 Цена за 1 лист'))
 # async def get_ppt_price(message: types.Message):
-#     global state
-#     state = True
 #     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     answer = '📏 Размер листа: 1000*500мм:\n'
+#     answer += f'\nПлотность: 10-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 15-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 15-Б\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-15-Б']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-Б']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 20-А\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 25-А\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 25-Б\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-25-Б']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-Б']['1000*500мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 35-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм'][p]} руб.\n"
 #
-#     @dp.message_handler()
-#     async def get_quantity(msg: types.Message):
-#         if state:
-#             try:
-#                 quantity = int(msg.text)
-#                 await message.answer(text='Введите плотность')
-#                 pl = int(msg.text)
-#                 print('Количество', quantity)
-#                 print('плотность', pl)
+#     answer += '\n📏 Размер листа: 1000x1000мм:\n'
+#     answer += f'\nПлотность: 10-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 15-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*1000мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-15-А']['1000*1000мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 15-Б\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*1000мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-20-А']['1000*1000мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 25-А\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*1000мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-25-А']['1000*1000мм'][p]} руб.\n"
+#     answer += f'\nПлотность: 35-A\n\n'
+#     for p in PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*1000мм']:
+#         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*1000мм'][p]} руб.\n"
 #
-#                 await message.answer(text='ок')
-#             except ValueError:
-#                 await message.answer(text='Вы ввели не число')
-#
-#     keyboard.add('✳ Меню')
-#     await message.answer(text='asd', reply_markup=keyboard)
+#     keyboard.add('📦 Цена за 1м3', '✳ Меню')
+#     await message.answer(text=answer, reply_markup=keyboard)
 
 
 @dp.message_handler(Text(equals='Сетка штукатурная'))
@@ -187,16 +166,6 @@ async def get_extrusion(message: types.Message):
         answer += f'🔸 {osb}: {"%.2f" % OSB_PLATE[osb]} руб.\n'
     keyboard.add('✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
-
-
-# @dp.message_handler(Text(equals='Экструзия'))
-# async def get_extrusion(message: types.Message):
-#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     answer = '💵 Цена за 1 лист (1180*580мм): 💵\n\n'
-#     for ext in EXTRUSION_PRICES:
-#         answer += f'🔸 {ext}: {"%.2f" % EXTRUSION_PRICES[ext]} руб.\n'
-#     keyboard.add('Меню')
-#     await message.answer(text=answer, reply_markup=keyboard)
 
 
 if __name__ == '__main__':
