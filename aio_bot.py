@@ -124,7 +124,7 @@ async def get_ppt_price(message: types.Message):
     for p in PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм']:
         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-35-А']['1000*500мм'][p]} руб.\n"
 
-    answer += '\n📏 Размер листа: 1000*1000мм:\n'
+    answer += '\n📏 Размер листа: 1000x1000мм:\n'
     answer += f'\nПлотность: 10-A\n\n'
     for p in PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм']:
         answer += f"{p}: {'%.2f' % PPT_PRICE_FOR_ONE['ППТ-10-А']['1000*1000мм'][p]} руб.\n"
@@ -143,6 +143,30 @@ async def get_ppt_price(message: types.Message):
 
     keyboard.add('📦 Цена за 1м3', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
+
+
+# @dp.message_handler(Text(equals='⌨ Расчет ППТ'))
+# async def get_ppt_price(message: types.Message):
+#     global state
+#     state = True
+#     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#
+#     @dp.message_handler()
+#     async def get_quantity(msg: types.Message):
+#         if state:
+#             try:
+#                 quantity = int(msg.text)
+#                 await message.answer(text='Введите плотность')
+#                 pl = int(msg.text)
+#                 print('Количество', quantity)
+#                 print('плотность', pl)
+#
+#                 await message.answer(text='ок')
+#             except ValueError:
+#                 await message.answer(text='Вы ввели не число')
+#
+#     keyboard.add('✳ Меню')
+#     await message.answer(text='asd', reply_markup=keyboard)
 
 
 @dp.message_handler(Text(equals='Сетка штукатурная'))
