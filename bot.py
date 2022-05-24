@@ -258,15 +258,13 @@ async def get_extrusion(message: types.Message):
     await message.answer(text=answer, reply_markup=keyboard)
 
 
-@dp.message_handler(Text(equals='Клей'))
+@dp.message_handler(Text(equals='Сухие смеси'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('GLUES')
-    for glu in data:
-        answer += f'🔸 {glu}: {"%.2f" % data[glu]} руб.\n'
-    keyboard.add('✳ Меню')
+    btns = ['Гидроизоляция', 'Клей', 'Кладочные составы', 'Короед',
+            'Корник', 'Цемент', 'Шпатлевка', 'Штукатурка', '✳ Меню']
+    answer = '👇 Выберите тип'
+    keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
 
 
