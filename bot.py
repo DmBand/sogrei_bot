@@ -61,7 +61,7 @@ async def get_contacts(message: types.Message):
              '❎ <b>БЕЗ ОБЕДА И ВЫХОДНЫХ</b>\n' \
              '📞 +375336224802 <b>МТС</b>\n' \
              '📞 +375447717753 <b>А1</b>\n' \
-             '📞 32-12-12 <b>Городской</b>\n\n' \
+             '📞 32-12-12 <b>(Городской)</b>\n\n' \
              '🧰 <b>Отдел продаж</b>\n' \
              'понедельник-пятница: <b>08:00 - 17:00</b>\n' \
              'суббота-воскресенье: <b>выходной</b>\n' \
@@ -177,10 +177,10 @@ async def get_ppt_price_for_one(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 лист: 💵\n\n' \
              '📏 Размер листа: 1000*500мм:\n'
-    answer += f'\nПлотность: 10-A\n\n'
     with open('products.json', 'r', encoding='utf8') as f:
         proce_per_cubic_metr = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
         data = get_price_for_one(proce_per_cubic_metr)
+        answer += f'\nПлотность: 10-A\n\n'
         for p in data['ППТ-10-А']['1000*500мм']:
             answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-10-А']['1000*500мм'][p]} руб.</b>\n"
         answer += f'\nПлотность: 15-A\n\n'
