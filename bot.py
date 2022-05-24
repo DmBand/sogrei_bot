@@ -15,7 +15,8 @@ CATEGORIES = [
     'Сталь',
     'Сухие смеси',
     'OSB-плиты влагостойкие',
-    '📄 Контакты'
+    '📄 Контакты',
+    'Рассчитать пенопласт'
 ]
 
 main_menu = '❗ ВСЕ ЦЕНЫ НА ТОВАР УКАЗАНЫ <b>БЕЗ УЧЕТА СКИДОК</b> ❗\n\n' \
@@ -505,6 +506,36 @@ async def get_osb(message: types.Message):
             answer += f'🔸 {osb}: <b>{"%.2f" % data[osb]} руб.</b>\n'
     keyboard.add('✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
+
+
+ppt_thickness = (1, 2, 3, 4, 5, 7, 8, 10)
+ppt_density = (10, 15, 20, 25, 35)
+ppt_calculator_text = f'❗ Для рассчета пенопласта введите следующие данные <b>ЧЕРЕЗ ЗАПЯТУЮ</b>:\n\n' \
+                      f'<b><code>площадь \м2\, </code></b>' \
+                      f'<b><code>толщина листа \см\\ {ppt_thickness}, </code></b>' \
+                      f'<b><code>плотность пенопласта {ppt_density}</code></b>\n\n' \
+                      f'<b>ПРИМЕР:</b>\n' \
+                      f'<code>15.5, 5, 20</code>\n\n' \
+                      f'👆 <i>Текст выше можно скопировать в качестве шаблона, нажав на него 👌</i>\n\n' \
+                      f'Введите ваши данные 👇'
+
+
+@dp.message_handler(Text(equals=['Рассчитать пенопласт', 'рассчитать пенопласт']))
+async def get_osb(message: types.Message):
+    await message.answer(text=ppt_calculator_text, parse_mode='HTML')
+
+    @dp.message_handler()
+    async def ppt_calculator(msg: types.Message):
+        try:
+            data = list(map(float, msg.text.split(',')))
+            if len(data) != 3 or data[1] not in ppt_thickness or data[2] not in ppt_density:
+                raise ValueError
+        except (TypeError, ValueError):
+            answer = '❗ НЕКОРРЕКТНЫЙ ВВОД ❗\n' + ppt_calculator_text
+            await msg.answer(text=answer, parse_mode='HTML')
+        else:
+            square, thickness, density = data
+
 
 
 if __name__ == '__main__':
