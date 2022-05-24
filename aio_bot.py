@@ -45,8 +45,10 @@ async def get_extrusion(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    for dry in DRYWALL['Огнеупорный']:
-        answer += f'🔸 {dry}: {"%.2f" % DRYWALL["Огнеупорный"][dry]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('DRYWALL')
+    for dry in data['Огнеупорный']:
+        answer += f'🔸 {dry}: {"%.2f" % data["Огнеупорный"][dry]} руб.\n'
     keyboard.add('💧 Влагостойкий', '✨ Обычный', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
@@ -55,8 +57,10 @@ async def get_extrusion(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    for dry in DRYWALL['Влагостойкий']:
-        answer += f'🔸 {dry}: {"%.2f" % DRYWALL["Влагостойкий"][dry]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('DRYWALL')
+    for dry in data['Влагостойкий']:
+        answer += f'🔸 {dry}: {"%.2f" % data["Влагостойкий"][dry]} руб.\n'
     keyboard.add('🔥 Огнеупорный', '✨ Обычный', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
@@ -65,8 +69,10 @@ async def get_extrusion(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    for dry in DRYWALL['Обычный']:
-        answer += f'🔸 {dry}: {"%.2f" % DRYWALL["Обычный"][dry]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('DRYWALL')
+    for dry in data['Обычный']:
+        answer += f'🔸 {dry}: {"%.2f" % data["Обычный"][dry]} руб.\n'
     keyboard.add('🔥 Огнеупорный', '💧 Влагостойкий', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
@@ -75,8 +81,10 @@ async def get_extrusion(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 мешок: 💵\n\n'
-    for glu in GLUES:
-        answer += f'🔸 {glu}: {"%.2f" % GLUES[glu]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('GLUES')
+    for glu in data:
+        answer += f'🔸 {glu}: {"%.2f" % data[glu]} руб.\n'
     keyboard.add('✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
@@ -152,8 +160,10 @@ async def get_ppt_price(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1м2: 💵\n\n'
-    for mesh in FIBERGLASS_MESH:
-        answer += f'🔸 {mesh}: {"%.2f" % FIBERGLASS_MESH[mesh]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('FIBERGLASS_MESH')
+    for mesh in data:
+        answer += f'🔸 {mesh}: {"%.2f" % data[mesh]} руб.\n'
     keyboard.add('✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
@@ -162,8 +172,10 @@ async def get_extrusion(message: types.Message):
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '💵 Цена за 1 лист: 💵\n\n'
-    for osb in OSB_PLATE:
-        answer += f'🔸 {osb}: {"%.2f" % OSB_PLATE[osb]} руб.\n'
+    with open('./prod.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('OSB_PLATE')
+    for osb in data:
+        answer += f'🔸 {osb}: {"%.2f" % data[osb]} руб.\n'
     keyboard.add('✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
