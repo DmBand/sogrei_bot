@@ -8,9 +8,12 @@ from ppt_price_for_one_calculator import get_price_for_one
 
 CATEGORIES = [
     'Гипсокартон',
-    'Клей',
+    'Дюбеля для теплоизоляции',
     'Пенопласт',
+    'Профиль',
     'Сетка штукатурная',
+    'Сталь',
+    'Сухие смеси',
     'OSB-плиты влагостойкие',
 ]
 
@@ -85,15 +88,36 @@ async def get_extrusion(message: types.Message):
     await message.answer(text=answer, reply_markup=keyboard)
 
 
-@dp.message_handler(Text(equals='Клей'))
+@dp.message_handler(Text(equals='Дюбеля для теплоизоляции'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
+    btns = ['⚒ Стальной гвоздь', '🔨 Пластиковый гвоздь', '✳ Меню']
+    answer = '👇 Выберите тип'
+    keyboard.add(*btns)
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='⚒ Стальной гвоздь'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1шт: 💵\n\n'
     with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('GLUES')
-    for glu in data:
-        answer += f'🔸 {glu}: {"%.2f" % data[glu]} руб.\n'
-    keyboard.add('✳ Меню')
+        data = json.load(f).get('DOWEl')
+    for dow in data['Стальной гвоздь']:
+        answer += f'🔸 {dow}: {"%.2f" % data["Стальной гвоздь"][dow]} руб.\n'
+    keyboard.add('🔨 Пластиковый гвоздь', '✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='🔨 Пластиковый гвоздь'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1шт: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('DOWEl')
+    for dow in data['Пластиковый гвоздь']:
+        answer += f'🔸 {dow}: {"%.2f" % data["Пластиковый гвоздь"][dow]} руб.\n'
+    keyboard.add('⚒ Стальной гвоздь', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard)
 
 
@@ -165,6 +189,18 @@ async def get_ppt_price(message: types.Message):
     await message.answer(text=answer, reply_markup=keyboard)
 
 
+@dp.message_handler(Text(equals='Профиль'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена 1шт (3м): 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PROFILE')
+    for pr in data:
+        answer += f'🔸 {pr}: {"%.2f" % data[pr]} руб.\n'
+    keyboard.add('✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
 @dp.message_handler(Text(equals='Сетка штукатурная'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -177,10 +213,67 @@ async def get_extrusion(message: types.Message):
     await message.answer(text=answer, reply_markup=keyboard)
 
 
+@dp.message_handler(Text(equals='Сталь'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btns = ['🔺 Арматура', '🔹 Трубы профильные', '🔻 Уголок стальной', '✳ Меню']
+    answer = '👇 Выберите тип'
+    keyboard.add(*btns)
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='🔺 Арматура'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1 прут: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('STEEL')
+    for st in data['Арматура']:
+        answer += f'🔸 {st}: {"%.2f" % data["Арматура"][st]} руб.\n'
+    keyboard.add('🔹 Трубы профильные', '🔻 Уголок стальной', '✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='🔹 Трубы профильные'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('STEEL')
+    for st in data['Трубы профильные']:
+        answer += f'🔸 {st}: {"%.2f" % data["Трубы профильные"][st]} руб.\n'
+    keyboard.add('🔺 Арматура', '🔻 Уголок стальной', '✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='🔻 Уголок стальной'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('STEEL')
+    for st in data['Уголок стальной']:
+        answer += f'🔸 {st}: {"%.2f" % data["Уголок стальной"][st]} руб.\n'
+    keyboard.add('🔺 Арматура', '🔹 Трубы профильные', '✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals='Клей'))
+async def get_extrusion(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '💵 Цена за 1 мешок: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('GLUES')
+    for glu in data:
+        answer += f'🔸 {glu}: {"%.2f" % data[glu]} руб.\n'
+    keyboard.add('✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
 @dp.message_handler(Text(equals='OSB-плиты влагостойкие'))
 async def get_extrusion(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1 лист: 💵\n\n'
+    answer = '💵 Цена за 1шт (6м): 💵\n\n'
     with open('products.json', 'r', encoding='utf8') as f:
         data = json.load(f).get('OSB_PLATE')
     for osb in data:
