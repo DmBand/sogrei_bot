@@ -1,4 +1,5 @@
 import json
+import math
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
@@ -510,12 +511,14 @@ async def get_osb(message: types.Message):
 
 ppt_thickness = (1, 2, 3, 4, 5, 7, 8, 10)
 ppt_density = (10, 15, 20, 25, 35)
+sheet_type = ('А', 'Б')
 ppt_calculator_text = f'❗ Для рассчета пенопласта введите следующие данные <b>ЧЕРЕЗ ЗАПЯТУЮ</b>:\n\n' \
                       f'<b><code>площадь \м2\, </code></b>' \
                       f'<b><code>толщина листа \см\\ {ppt_thickness}, </code></b>' \
-                      f'<b><code>плотность пенопласта {ppt_density}</code></b>\n\n' \
+                      f'<b><code>плотность пенопласта {ppt_density}, </code></b>' \
+                      f'<b><code>листы без паза или с пазом (А, Б)</code></b>\n\n' \
                       f'<b>ПРИМЕР:</b>\n' \
-                      f'<code>15.5, 5, 20</code>\n\n' \
+                      f'<code>15.5, 5, 20, А</code>\n\n' \
                       f'👆 <i>Текст выше можно скопировать в качестве шаблона, нажав на него 👌</i>\n\n' \
                       f'Введите ваши данные 👇'
 
@@ -527,15 +530,59 @@ async def get_osb(message: types.Message):
     @dp.message_handler()
     async def ppt_calculator(msg: types.Message):
         try:
-            data = list(map(float, msg.text.split(',')))
-            if len(data) != 3 or data[1] not in ppt_thickness or data[2] not in ppt_density:
+            data = msg.text.split(',')
+            print(data)
+            if len(data) != 4 \
+                    or int(data[1]) not in ppt_thickness \
+                    or int(data[2]) not in ppt_density \
+                    or data[3].strip().upper() not in sheet_type:
                 raise ValueError
+            if int(data[1]) == 1 and (int(data[2]) in (10, 15) or data[3].strip().upper() == 'Б'):
+                raise await msg.answer(
+                    text='🙁 К сожалению, пенопласт толщиной 1 см\n'
+                         'не может быть ниже <b>20</b> плотности\n'
+                         'и только <b>листы без паза</b>...',
+                    parse_mode='HTML')
         except (TypeError, ValueError):
             answer = '❗ НЕКОРРЕКТНЫЙ ВВОД ❗\n' + ppt_calculator_text
             await msg.answer(text=answer, parse_mode='HTML')
         else:
-            square, thickness, density = data
+            square = float(data[0])
+            thickness = int(data[1])
+            density = int(data[2])
+            s_type = data[3].strip().upper()
+            # большие листы
+            num_of_large_sheets = math.ceil(square)
+            # маленькие листы
+            num_of_small_sheets = math.ceil(square * 2)
+            # объем
+            capacity = num_of_small_sheets * 0.5 * (thickness / 100)
+            print(capacity)
+            with open('products.json', 'r', encoding='utf8') as f:
+                price_per_cubic_metr = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
+                price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
 
+            await msg.answer(
+                text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
+                     f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
+                     f'<i>Плотность:</i> <b>{density}</b>\n'
+                     f'<i>Тип листов:</i> <b>{"Без паза" if s_type == "А" else "С пазом"}</b>\n\n'
+                     f'📜 <i>Количество листов:</i>\n'
+                     f'<b>{num_of_large_sheets}шт</b> 1000*1000мм\n'
+                     f'<i>или</i>\n'
+                     f'<b>{num_of_small_sheets}шт</b> 1000*500мм\n\n'
+                     f'📦 <i>Объем:</i> <b>{capacity}м3</b>\n\n'
+                     f'💵 <i>Примерная стоимость:</i>\n'
+                     f'<b>{"%.2f" % price} руб.</b>\n'
+                     f'<i>Примерная стоимость с учетом скидочной карты (3%):</i>\n'
+                     f'<b>{"%.2f" % (price - (price * 0.03))} руб.</b>\n\n'
+                     f'❗ Наличие листов нужного размера и количества\n'
+                     f'уточняйте по телефонам:\n'
+                     f'📞 +375297804352 <b>(МТС)</b>\n'
+                     f'📞 +375291990505 <b>(A1)</b>\n'
+                     f'📞 32-06-06 <b>(Городской)</b>',
+                parse_mode='HTML'
+            )
 
 
 if __name__ == '__main__':
