@@ -24,6 +24,7 @@ def get_price_for_one(proce_per_cubic_metr):
                         '2см': 0.01 * proce_per_cubic_metr['ППТ-15-А'],
                         '3см': 0.015 * proce_per_cubic_metr['ППТ-15-А'],
                         '5см': 0.025 * proce_per_cubic_metr['ППТ-15-А'],
+                        '7см': 0.035 * proce_per_cubic_metr['ППТ-15-А'],
                         '10см': 0.05 * proce_per_cubic_metr['ППТ-15-А'],
                     },
                 '1000*1000мм':
@@ -50,6 +51,7 @@ def get_price_for_one(proce_per_cubic_metr):
                         '2см': 0.01 * proce_per_cubic_metr['ППТ-20-А'],
                         '3см': 0.015 * proce_per_cubic_metr['ППТ-20-А'],
                         '5см': 0.025 * proce_per_cubic_metr['ППТ-20-А'],
+                        '7см': 0.035 * proce_per_cubic_metr['ППТ-20-А'],
                         '10см': 0.05 * proce_per_cubic_metr['ППТ-20-А'],
                     },
                 '1000*1000мм':

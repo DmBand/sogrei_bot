@@ -10,6 +10,8 @@ from ppt_price_for_one_calculator import get_price_for_one
 CATEGORIES = [
     'Гипсокартон',
     'Дюбеля для теплоизоляции',
+    'Краски',
+    'Минеральная вата',
     '✨ Пенопласт',
     'Профиль',
     'Сетка штукатурная',
@@ -150,6 +152,108 @@ async def get_plastic_dowel(message: types.Message):
             answer += f'🔸 {dow}: <b>{"%.2f" % data["Пластиковый гвоздь"][dow]} руб.</b>\n'
     keyboard.add('⚒ Стальной гвоздь', '✳ Меню')
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['⬅ Краски', 'Краски', 'краски']))
+async def get_fiberglass_mesh(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btns = ['🔻 Тайфун Мастер', '🔸 Condor', '🔹 Kapral', '🔺 Malevanka', '▫ Sniezka', '✳ Меню']
+    answer = '👇 Выберите тип'
+    keyboard.add(*btns)
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(
+    equals=['🔻 Тайфун Мастер', 'Тайфун Мастер', 'Тайфун мастер', 'тайфун Мастер', 'тайфун мастер']
+))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Тайфун Мастер')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['🔸 Condor', 'Condor', 'сondor', 'Кондор', 'кондор']))
+async def get_fiberglass_mesh(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    answer = '👇 Выберите тип'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor')
+        btns = [b for b in data]
+        keyboard.add(*btns, '⬅ Краски', '✳ Меню')
+    await message.answer(text=answer, reply_markup=keyboard)
+
+
+@dp.message_handler(Text(equals=['Белые интерьеры', 'белые интерьеры']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Белые интерьеры')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Для потолков', 'для потолков']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Для потолков')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Кухни и ванные', 'кухни и ванные']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Кухни и ванные')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Латексная', 'латексная']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Латексная')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Фасадная', 'фасадная']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Фасадная')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Школы и офисы', 'школы и офисы']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 ведро: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('PAINT').get('Condor').get('Школы и офисы')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
+
+
+@dp.message_handler(Text(equals=['Минеральная вата', 'минеральная вата']))
+async def get_fiberglass_mesh(message: types.Message):
+    answer = '💵 Цена за 1 упаковку: 💵\n\n'
+    with open('products.json', 'r', encoding='utf8') as f:
+        data = json.load(f).get('MINERAL_WOOL')
+        for i in data:
+            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    await message.answer(text=answer, parse_mode='HTML')
 
 
 @dp.message_handler(Text(equals=['✨ Пенопласт', 'пенопласт', 'пенопласт']))
