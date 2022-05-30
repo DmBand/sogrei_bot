@@ -37,7 +37,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 
-@dp.message_handler(commands=['start', 'старт'])
+@dp.message_handler(commands=['start', 'старт', 'menu', 'Menu'])
 async def start(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     buttons = [cat for cat in CATEGORIES]
