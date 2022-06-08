@@ -73,7 +73,7 @@ async def get_contacts(message: types.Message):
              '📞 +375291990505 <b>(A1)</b>\n' \
              '📞 32-06-06 <b>(Городской)</b>\n\n' \
              '<a href="https://www.instagram.com/sogrey_m.grodno/"><b>🌄 Мы в Instagram</b></a>\n\n' \
-             '<a href="https://goo.gl/maps/JfKL7NW7Bsdo4zVZ8">🌎 <b>ПОСМОТРЕТЬ НА КАРТЕ</b> 👈</a>'
+             '<a href="https://goo.gl/maps/JfKL7NW7Bsdo4zVZ8">🌎 <b>МЫ НА КАРТЕ</b> 👈</a>'
     await message.answer(text=answer, parse_mode='HTML')
 
 
