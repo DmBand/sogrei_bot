@@ -80,7 +80,12 @@ async def get_contacts(message: types.Message):
 @dp.message_handler(Text(equals=['Гипсокартон', 'гипсокартон']))
 async def get_drywall(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = ['🔥 Огнеупорный', '💧 Влагостойкий', '✨ Обычный', '✳ Меню']
+    btns = [
+        '🔥 Огнеупорный',
+        '💧 Влагостойкий',
+        '✨ Обычный',
+        '✳ Меню',
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
@@ -94,7 +99,11 @@ async def get_refactory_drywall(message: types.Message):
         data = json.load(f).get('DRYWALL')
         for dry in data['Огнеупорный']:
             answer += f'🔸 {dry}: <b>{"%.2f" % data["Огнеупорный"][dry]} руб.</b>\n'
-    keyboard.add('💧 Влагостойкий', '✨ Обычный', '✳ Меню')
+    keyboard.add(
+        '💧 Влагостойкий',
+        '✨ Обычный',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -106,7 +115,11 @@ async def get_moisture_resistant_drywal(message: types.Message):
         data = json.load(f).get('DRYWALL')
         for dry in data['Влагостойкий']:
             answer += f'🔸 {dry}: <b>{"%.2f" % data["Влагостойкий"][dry]} руб.</b>\n'
-    keyboard.add('🔥 Огнеупорный', '✨ Обычный', '✳ Меню')
+    keyboard.add(
+        '🔥 Огнеупорный',
+        '✨ Обычный',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -118,14 +131,22 @@ async def get_simple_drywall(message: types.Message):
         data = json.load(f).get('DRYWALL')
         for dry in data['Обычный']:
             answer += f'🔸 {dry}: <b>{"%.2f" % data["Обычный"][dry]} руб.</b>\n'
-    keyboard.add('🔥 Огнеупорный', '💧 Влагостойкий', '✳ Меню')
+    keyboard.add(
+        '🔥 Огнеупорный',
+        '💧 Влагостойкий',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
 @dp.message_handler(Text(equals=['Дюбеля для теплоизоляции', 'дюбеля для теплоизоляции']))
 async def get_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-    btns = ['⚒ Стальной гвоздь', '🔨 Пластиковый гвоздь', '✳ Меню']
+    btns = [
+        '⚒ Стальной гвоздь',
+        '🔨 Пластиковый гвоздь',
+        '✳ Меню',
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
@@ -139,7 +160,10 @@ async def get_steel_dowel(message: types.Message):
         data = json.load(f).get('DOWEl')
         for dow in data['Стальной гвоздь']:
             answer += f'🔸 {dow}: <b>{"%.2f" % data["Стальной гвоздь"][dow]} руб.</b>\n'
-    keyboard.add('🔨 Пластиковый гвоздь', '✳ Меню')
+    keyboard.add(
+        '🔨 Пластиковый гвоздь',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -151,14 +175,24 @@ async def get_plastic_dowel(message: types.Message):
         data = json.load(f).get('DOWEl')
         for dow in data['Пластиковый гвоздь']:
             answer += f'🔸 {dow}: <b>{"%.2f" % data["Пластиковый гвоздь"][dow]} руб.</b>\n'
-    keyboard.add('⚒ Стальной гвоздь', '✳ Меню')
+    keyboard.add(
+        '⚒ Стальной гвоздь',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
 @dp.message_handler(Text(equals=['⬅ Краски', 'Краски', 'краски']))
 async def get_paints(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = ['🔻 Тайфун Мастер', '🔸 Condor', '🔹 Kapral', '🔺 Malevanka', '▫ Sniezka', '✳ Меню']
+    btns = [
+        '🔻 Тайфун Мастер',
+        '🔸 Condor',
+        '🔹 Kapral',
+        '🔺 Malevanka',
+        '▫ Sniezka',
+        '✳ Меню',
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
@@ -254,7 +288,11 @@ async def get_paints_kapral(message: types.Message):
     with open('products.json', 'r', encoding='utf8') as f:
         data = json.load(f).get('PAINT').get('Kapral')
         btns = [b for b in data]
-        keyboard.add(*btns, '⬅ Краски', '✳ Меню')
+        keyboard.add(
+            *btns,
+            '⬅ Краски',
+            '✳ Меню',
+        )
     await message.answer(text=answer, reply_markup=keyboard)
 
 
@@ -332,7 +370,12 @@ async def get_mineral_wool(message: types.Message):
 async def get_ppt_price(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Какую цену хотите узнать?'
-    keyboard.add('📦 Цена за 1м3', '📃 Цена за 1 лист', '✳ Меню', '✅ Рассчитать пенопласт')
+    keyboard.add(
+        '📦 Цена за 1м3',
+        '📃 Цена за 1 лист',
+        '✳ Меню',
+        '✅ Рассчитать пенопласт',
+    )
     await message.answer(text=answer, reply_markup=keyboard)
 
 
@@ -344,7 +387,11 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
         data = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
         for ppt in data:
             answer += f'🔸 {ppt}: <b>{"%.2f" % data[ppt]} руб.</b>\n'
-    keyboard.add('📃 Цена за 1 лист', '✳ Меню', '✅ Рассчитать пенопласт')
+    keyboard.add(
+        '📃 Цена за 1 лист',
+        '✳ Меню',
+        '✅ Рассчитать пенопласт',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -377,7 +424,6 @@ async def get_ppt_price_for_one(message: types.Message):
         answer += f'\nПлотность: 35-A\n\n'
         for p in data['ППТ-35-А']['1000*500мм']:
             answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-35-А']['1000*500мм'][p]} руб.</b>\n"
-
         answer += '\n📏 Размер листа: 1000x1000мм:\n'
         answer += f'\nПлотность: 10-A\n\n'
         for p in data['ППТ-10-А']['1000*1000мм']:
@@ -394,8 +440,11 @@ async def get_ppt_price_for_one(message: types.Message):
         answer += f'\nПлотность: 35-A\n\n'
         for p in data['ППТ-35-А']['1000*1000мм']:
             answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-35-А']['1000*1000мм'][p]} руб.</b>\n"
-
-    keyboard.add('📦 Цена за 1м3', '✳ Меню', '✅ Рассчитать пенопласт')
+    keyboard.add(
+        '📦 Цена за 1м3',
+        '✳ Меню',
+        '✅ Рассчитать пенопласт',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -436,7 +485,11 @@ async def get_fittings(message: types.Message):
         data = json.load(f).get('STEEL')
         for st in data['Арматура']:
             answer += f'🔸 {st}: <b>{"%.2f" % data["Арматура"][st]} руб.</b>\n'
-    keyboard.add('🔹 Трубы профильные', '🔻 Уголок стальной', '✳ Меню')
+    keyboard.add(
+        '🔹 Трубы профильные',
+        '🔻 Уголок стальной',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -448,7 +501,11 @@ async def get_pipe(message: types.Message):
         data = json.load(f).get('STEEL')
         for st in data['Трубы профильные']:
             answer += f'🔸 {st}: <b>{"%.2f" % data["Трубы профильные"][st]} руб.</b>\n'
-    keyboard.add('🔺 Арматура', '🔻 Уголок стальной', '✳ Меню')
+    keyboard.add(
+        '🔺 Арматура',
+        '🔻 Уголок стальной',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
@@ -460,16 +517,32 @@ async def get_corner(message: types.Message):
         data = json.load(f).get('STEEL')
         for st in data['Уголок стальной']:
             answer += f'🔸 {st}: <b>{"%.2f" % data["Уголок стальной"][st]} руб.</b>\n'
-    keyboard.add('🔺 Арматура', '🔹 Трубы профильные', '✳ Меню')
+    keyboard.add(
+        '🔺 Арматура',
+        '🔹 Трубы профильные',
+        '✳ Меню',
+    )
     await message.answer(text=answer, reply_markup=keyboard, parse_mode='HTML')
 
 
 @dp.message_handler(Text(equals=['⬅ Сухие смеси', 'Сухие смеси', 'сухие смеси']))
 async def get_dry_mixes(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = ['💧 Гидроизоляция', '🟥 Гипс строительный', '🟧 Клеевые составы',
-            '🧱 Кладочные составы', '🟨 Короед', '🟩 Корник', '🟫 Самонивелиры',
-            '🔴 Стяжки', '⚪ Цемент', '🟡 Шпатлевка', '🟢 Штукатурка', '🟣 Шуба', '✳ Меню']
+    btns = [
+        '💧 Гидроизоляция',
+        '🟥 Гипс строительный',
+        '🟧 Клеевые составы',
+        '🧱 Кладочные составы',
+        '🟨 Короед',
+        '🟩 Корник',
+        '🟫 Самонивелиры',
+        '🔴 Стяжки',
+        '⚪ Цемент',
+        '🟡 Шпатлевка',
+        '🟢 Штукатурка',
+        '🟣 Шуба',
+        '✳ Меню',
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
@@ -501,7 +574,11 @@ async def get_glues(message: types.Message):
     with open('products.json', 'r', encoding='utf8') as f:
         data = json.load(f).get('DRY_MIXES')
     btn = [k for k in data['Клеевые составы'].keys()]
-    btns = [*btn, '⬅ Сухие смеси', '✳ Меню']
+    btns = [
+        *btn,
+        '⬅ Сухие смеси',
+        '✳ Меню',
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(text=answer, reply_markup=keyboard)
@@ -697,7 +774,6 @@ async def get_ppt_calculator(message: types.Message):
             with open('products.json', 'r', encoding='utf8') as f:
                 price_per_cubic_metr = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
                 price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
-
             await msg.answer(
                 text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
                      f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
