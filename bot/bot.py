@@ -1,7 +1,6 @@
 import json
 import math
 import logging
-import sqlite3
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
 
