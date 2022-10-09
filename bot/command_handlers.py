@@ -4,8 +4,15 @@ import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.dispatcher.filters import Text
 
+from admin import check_permission
+from db_manager import DBHandler
 from secret import TOKEN
 from ppt_price_for_one_calculator import get_price_for_one
+
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+db = DBHandler()
 
 CATEGORIES = [
     'Гипсокартон',
@@ -137,11 +144,7 @@ async def get_refactory_drywall(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Огнеупорный']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Огнеупорный"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Огнеупорный')
     keyboard.add(
         '💧 Влагостойкий',
         '✨ Обычный',
@@ -164,11 +167,7 @@ async def get_moisture_resistant_drywal(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Влагостойкий']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Влагостойкий"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Влагостойкий')
     keyboard.add(
         '🔥 Огнеупорный',
         '✨ Обычный',
@@ -191,11 +190,7 @@ async def get_simple_drywall(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Обычный']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Обычный"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Обычный')
     keyboard.add(
         '🔥 Огнеупорный',
         '💧 Влагостойкий',
@@ -1214,3 +1209,13 @@ async def get_ppt_calculator(message: types.Message):
                      f'📞 32-06-06 <b>(Городской)</b>',
                 parse_mode='HTML'
             )
+
+
+@dp.message_handler(commands=['admin'])
+async def admin(message: types.Message):
+    if not check_permission(message):
+        await message.answer('У Вас нет доступа к панели администратора.')
+    else:
+
+        await message.answer(text='Yes')
+
