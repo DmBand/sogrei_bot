@@ -4,8 +4,15 @@ import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.dispatcher.filters import Text
 
+from admin import check_permission
+from db_manager import DBHandler
 from secret import TOKEN
 from ppt_price_for_one_calculator import get_price_for_one
+
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher(bot)
+db = DBHandler()
 
 CATEGORIES = [
     'Гипсокартон',
@@ -137,11 +144,7 @@ async def get_refactory_drywall(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Огнеупорный']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Огнеупорный"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Огнеупорный')
     keyboard.add(
         '💧 Влагостойкий',
         '✨ Обычный',
@@ -164,11 +167,7 @@ async def get_moisture_resistant_drywal(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Влагостойкий']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Влагостойкий"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Влагостойкий')
     keyboard.add(
         '🔥 Огнеупорный',
         '✨ Обычный',
@@ -191,11 +190,7 @@ async def get_simple_drywall(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRYWALL')
-        for dry in data['Обычный']:
-            answer += f'🔸 {dry}: <b>{"%.2f" % data["Обычный"][dry]} руб.</b>\n'
+    answer = db.get_drywall('Обычный')
     keyboard.add(
         '🔥 Огнеупорный',
         '💧 Влагостойкий',
@@ -237,11 +232,7 @@ async def get_dowel(message: types.Message):
 ]))
 async def get_steel_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1шт: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DOWEl')
-        for dow in data['Стальной гвоздь']:
-            answer += f'🔸 {dow}: <b>{"%.2f" % data["Стальной гвоздь"][dow]} руб.</b>\n'
+    answer = db.get_dowel('Стальной гвоздь')
     keyboard.add(
         '🔨 Пластиковый гвоздь',
         '✳ Меню',
@@ -260,11 +251,7 @@ async def get_steel_dowel(message: types.Message):
 ]))
 async def get_plastic_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1шт: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DOWEl')
-        for dow in data['Пластиковый гвоздь']:
-            answer += f'🔸 {dow}: <b>{"%.2f" % data["Пластиковый гвоздь"][dow]} руб.</b>\n'
+    answer = db.get_dowel('Пластиковый гвоздь')
     keyboard.add(
         '⚒ Стальной гвоздь',
         '✳ Меню',
@@ -307,11 +294,7 @@ async def get_paints(message: types.Message):
     'тайфун мастер'
 ]))
 async def get_paints_taifun(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Тайфун Мастер')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Тайфун Мастер')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -343,11 +326,10 @@ async def get_paints_condor(message: types.Message):
     'белые интерьеры'
 ]))
 async def get_paints_condor_white_interiors(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Белые интерьеры')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Белые интерьеры'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -359,11 +341,10 @@ async def get_paints_condor_white_interiors(message: types.Message):
     'для потолков'
 ]))
 async def get_paints_condor_ceiling(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Для потолков')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Для потолков'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -375,11 +356,10 @@ async def get_paints_condor_ceiling(message: types.Message):
     'кухни и ванные'
 ]))
 async def get_paints_condor_kitchen(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Кухни и ванные')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Кухни и ванные'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -391,11 +371,10 @@ async def get_paints_condor_kitchen(message: types.Message):
     'латексная'
 ]))
 async def get_paints_condor_latex(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Латексная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Латексная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -407,11 +386,10 @@ async def get_paints_condor_latex(message: types.Message):
     'фасады'
 ]))
 async def get_paints_condor_front(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Фасады')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Фасады'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -423,11 +401,10 @@ async def get_paints_condor_front(message: types.Message):
     'школы и офисы'
 ]))
 async def get_paints_condor_schools(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Школы и офисы')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Школы и офисы'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -463,11 +440,10 @@ async def get_paints_kapral(message: types.Message):
     'интерьерная'
 ]))
 async def get_paints_kapral_interior(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Интерьерная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Интерьерная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -479,11 +455,10 @@ async def get_paints_kapral_interior(message: types.Message):
     'моющаяся'
 ]))
 async def get_paints_kapral_washable(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Моющаяся')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Моющаяся'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -495,11 +470,10 @@ async def get_paints_kapral_washable(message: types.Message):
     'супербелая'
 ]))
 async def get_paints_kapral_superwhite(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Супербелая')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Супербелая'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -511,11 +485,10 @@ async def get_paints_kapral_superwhite(message: types.Message):
     'фасадная'
 ]))
 async def get_paints_kapral_front(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Фасадная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Фасадная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -530,11 +503,7 @@ async def get_paints_kapral_front(message: types.Message):
     'малеванка'
 ]))
 async def get_paints_malevanka(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Malevanka')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Malevanka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -549,11 +518,7 @@ async def get_paints_malevanka(message: types.Message):
     'снежка'
 ]))
 async def get_paints_sniezka(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Sniezka')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Sniezka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -565,11 +530,7 @@ async def get_paints_sniezka(message: types.Message):
     'минеральная вата'
 ]))
 async def get_mineral_wool(message: types.Message):
-    answer = '💵 Цена за 1 упаковку: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('MINERAL_WOOL')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_mineral_wool()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -606,11 +567,7 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1м3: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
-        for ppt in data:
-            answer += f'🔸 {ppt}: <b>{"%.2f" % data[ppt]} руб.</b>\n'
+    answer = db.get_ppt_cubic_meter()
     keyboard.add(
         '📃 Цена за 1 лист',
         '✳ Меню',
@@ -1214,3 +1171,13 @@ async def get_ppt_calculator(message: types.Message):
                      f'📞 32-06-06 <b>(Городской)</b>',
                 parse_mode='HTML'
             )
+
+
+@dp.message_handler(commands=['admin'])
+async def admin(message: types.Message):
+    if not check_permission(message):
+        await message.answer('У Вас нет доступа к панели администратора.')
+    else:
+
+        await message.answer(text='Yes')
+
