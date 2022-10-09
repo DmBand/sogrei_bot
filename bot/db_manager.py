@@ -105,6 +105,8 @@ class DBHandler:
         return answer
 
     def get_mineral_wool(self) -> str:
+        """ Минеральная вата """
+
         conn = sqlite3.connect(self.db_name)
         row = conn.execute(
             "SELECT name, price "
@@ -120,6 +122,8 @@ class DBHandler:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
         return answer
+
+
 
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()
