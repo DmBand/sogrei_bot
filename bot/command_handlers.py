@@ -232,11 +232,7 @@ async def get_dowel(message: types.Message):
 ]))
 async def get_steel_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1шт: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DOWEl')
-        for dow in data['Стальной гвоздь']:
-            answer += f'🔸 {dow}: <b>{"%.2f" % data["Стальной гвоздь"][dow]} руб.</b>\n'
+    answer = db.get_dowel('Стальной гвоздь')
     keyboard.add(
         '🔨 Пластиковый гвоздь',
         '✳ Меню',
@@ -255,11 +251,7 @@ async def get_steel_dowel(message: types.Message):
 ]))
 async def get_plastic_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    answer = '💵 Цена за 1шт: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DOWEl')
-        for dow in data['Пластиковый гвоздь']:
-            answer += f'🔸 {dow}: <b>{"%.2f" % data["Пластиковый гвоздь"][dow]} руб.</b>\n'
+    answer = db.get_dowel('Пластиковый гвоздь')
     keyboard.add(
         '⚒ Стальной гвоздь',
         '✳ Меню',
