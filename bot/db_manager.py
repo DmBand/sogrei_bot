@@ -123,7 +123,25 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_ppt_cubic_meter(self) -> str:
+        """ Пенопласт """
 
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 8 AND in_stock = 1 "
+            "ORDER BY price ASC"
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1м3: 💵\n\n'
+            for dry in data:
+                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
 
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()

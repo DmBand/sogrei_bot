@@ -567,11 +567,7 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1м3: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
-        for ppt in data:
-            answer += f'🔸 {ppt}: <b>{"%.2f" % data[ppt]} руб.</b>\n'
+    answer = db.get_ppt_cubic_meter()
     keyboard.add(
         '📃 Цена за 1 лист',
         '✳ Меню',
