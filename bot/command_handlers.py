@@ -530,11 +530,7 @@ async def get_paints_sniezka(message: types.Message):
     'минеральная вата'
 ]))
 async def get_mineral_wool(message: types.Message):
-    answer = '💵 Цена за 1 упаковку: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('MINERAL_WOOL')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_mineral_wool()
     await message.answer(
         text=answer,
         parse_mode='HTML'

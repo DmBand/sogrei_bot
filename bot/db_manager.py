@@ -67,6 +67,7 @@ class DBHandler:
 
     def get_paints(self, description: str = None, description2: str = None) -> str or None:
         """ Краски """
+
         types = [
             'Тайфун Мастер',
             'Condor',
@@ -96,6 +97,23 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1 ведро: 💵\n\n'
+            for dry in data:
+                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
+
+    def get_mineral_wool(self) -> str or None:
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 6 AND in_stock = 1"
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1 упаковку: 💵\n\n'
             for dry in data:
                 answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
         else:
