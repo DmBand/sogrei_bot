@@ -104,7 +104,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_mineral_wool(self) -> str or None:
+    def get_mineral_wool(self) -> str:
         conn = sqlite3.connect(self.db_name)
         row = conn.execute(
             "SELECT name, price "
