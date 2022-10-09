@@ -503,11 +503,7 @@ async def get_paints_kapral_front(message: types.Message):
     'малеванка'
 ]))
 async def get_paints_malevanka(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Malevanka')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Malevanka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
