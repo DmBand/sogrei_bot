@@ -440,11 +440,10 @@ async def get_paints_kapral(message: types.Message):
     'интерьерная'
 ]))
 async def get_paints_kapral_interior(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Интерьерная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Интерьерная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -456,11 +455,10 @@ async def get_paints_kapral_interior(message: types.Message):
     'моющаяся'
 ]))
 async def get_paints_kapral_washable(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Моющаяся')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Моющаяся'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -472,11 +470,10 @@ async def get_paints_kapral_washable(message: types.Message):
     'супербелая'
 ]))
 async def get_paints_kapral_superwhite(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Супербелая')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Супербелая'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -488,11 +485,10 @@ async def get_paints_kapral_superwhite(message: types.Message):
     'фасадная'
 ]))
 async def get_paints_kapral_front(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral').get('Фасадная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Kapral',
+        description2='Фасадная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
