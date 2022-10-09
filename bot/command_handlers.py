@@ -518,11 +518,7 @@ async def get_paints_malevanka(message: types.Message):
     'снежка'
 ]))
 async def get_paints_sniezka(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Sniezka')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Sniezka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
