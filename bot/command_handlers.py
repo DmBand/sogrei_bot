@@ -294,11 +294,7 @@ async def get_paints(message: types.Message):
     'тайфун мастер'
 ]))
 async def get_paints_taifun(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Тайфун Мастер')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(description='Тайфун Мастер')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -330,11 +326,10 @@ async def get_paints_condor(message: types.Message):
     'белые интерьеры'
 ]))
 async def get_paints_condor_white_interiors(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Белые интерьеры')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Белые интерьеры'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -346,11 +341,10 @@ async def get_paints_condor_white_interiors(message: types.Message):
     'для потолков'
 ]))
 async def get_paints_condor_ceiling(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Для потолков')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Для потолков'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -362,11 +356,10 @@ async def get_paints_condor_ceiling(message: types.Message):
     'кухни и ванные'
 ]))
 async def get_paints_condor_kitchen(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Кухни и ванные')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Кухни и ванные'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -378,11 +371,10 @@ async def get_paints_condor_kitchen(message: types.Message):
     'латексная'
 ]))
 async def get_paints_condor_latex(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Латексная')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Латексная'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -394,11 +386,10 @@ async def get_paints_condor_latex(message: types.Message):
     'фасады'
 ]))
 async def get_paints_condor_front(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Фасады')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Фасады'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -410,11 +401,10 @@ async def get_paints_condor_front(message: types.Message):
     'школы и офисы'
 ]))
 async def get_paints_condor_schools(message: types.Message):
-    answer = '💵 Цена за 1 ведро: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor').get('Школы и офисы')
-        for i in data:
-            answer += f'🔸 {i}: <b>{"%.2f" % data[i]} руб.</b>\n'
+    answer = db.get_paints(
+        description='Condor',
+        description2='Школы и офисы'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'

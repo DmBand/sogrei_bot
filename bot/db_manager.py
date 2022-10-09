@@ -22,6 +22,7 @@ class DBHandler:
         ]
         if not description or description not in types:
             return
+
         conn = sqlite3.connect(self.db_name)
         row = conn.execute(
             "SELECT name, price "
@@ -47,6 +48,7 @@ class DBHandler:
         ]
         if not description or description not in types:
             return
+
         conn = sqlite3.connect(self.db_name)
         row = conn.execute(
             "SELECT name, price "
@@ -63,6 +65,43 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_paints(self, description: str = None, description2: str = None) -> str or None:
+        """ Краски """
+        types = [
+            'Тайфун Мастер',
+            'Condor',
+            'Kapral',
+            'Sniezka',
+            'Malevanka'
+        ]
+        if not description or description not in types:
+            return
+
+        conn = sqlite3.connect(self.db_name)
+        if description2:
+            row = conn.execute(
+                "SELECT name, price "
+                "FROM goods "
+                f"WHERE description = '{description}' "
+                f"AND description_2 = '{description2}'"
+                f"AND in_stock = 1"
+            )
+        else:
+            row = conn.execute(
+                "SELECT name, price "
+                "FROM goods "
+                f"WHERE description = '{description}' AND in_stock = 1"
+            )
+
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1 ведро: 💵\n\n'
+            for dry in data:
+                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
 
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()
