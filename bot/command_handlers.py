@@ -603,11 +603,7 @@ async def get_ppt_price_for_one(message: types.Message):
     'профиль'
 ]))
 async def get_profile(message: types.Message):
-    answer = '💵 Цена 1шт (3м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PROFILE')
-        for pr in data:
-            answer += f'🔸 {pr}: <b>{"%.2f" % data[pr]} руб.</b>\n'
+    answer = db.get_profile()
     await message.answer(
         text=answer,
         parse_mode='HTML'
