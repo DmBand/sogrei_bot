@@ -259,7 +259,12 @@ class DBHandler:
         )
         data = row.fetchall()
         if data:
-            answer = '💵 Цена за 1 прут: 💵\n\n'
+            if description == types[0]:
+                answer = '💵 Цена за 1 прут: 💵\n\n'
+            elif description == types[1]:
+                answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
+            else:
+                answer = '💵 Цена за 1 уголок (6м): 💵\n\n'
             for dry in data:
                 answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
         else:

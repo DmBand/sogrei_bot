@@ -670,11 +670,7 @@ async def get_pipe(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Трубы профильные']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Трубы профильные"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Трубы профильные')
     keyboard.add(
         '🔺 Арматура',
         '🔻 Уголок стальной',
