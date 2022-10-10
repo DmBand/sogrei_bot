@@ -34,8 +34,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1 лист 1200*2500мм (3м2): 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -60,8 +60,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1шт: 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -99,8 +99,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1 ведро: 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -118,8 +118,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1 упаковку: 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -138,8 +138,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1м3: 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -213,8 +213,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена 1шт (3м): 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -233,8 +233,8 @@ class DBHandler:
         data = row.fetchall()
         if data:
             answer = '💵 Цена за 1м2: 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
@@ -265,8 +265,8 @@ class DBHandler:
                 answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
             else:
                 answer = '💵 Цена за 1 уголок (6м): 💵\n\n'
-            for dry in data:
-                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
         else:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
