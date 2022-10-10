@@ -240,6 +240,34 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_steel(self, description: str = None) -> str or None:
+        """ Сталь """
+
+        types = [
+            'Арматура',
+            'Трубы профильные',
+            'Уголок стальной'
+        ]
+        if not description or description not in types:
+            return
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            f"WHERE description = '{description}' AND in_stock = 1 "
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1 прут: 💵\n\n'
+            for dry in data:
+                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
+
+
 
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()

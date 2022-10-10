@@ -647,11 +647,7 @@ async def get_fittings(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 прут: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Арматура']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Арматура"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Арматура')
     keyboard.add(
         '🔹 Трубы профильные',
         '🔻 Уголок стальной',
