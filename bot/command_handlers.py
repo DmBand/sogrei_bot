@@ -590,53 +590,7 @@ async def get_ppt_price_for_one(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 лист: 💵\n\n' \
-             '📏 Размер листа: 1000*500мм:\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        proce_per_cubic_metr = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
-        data = get_price_for_one(proce_per_cubic_metr)
-        answer += f'\nПлотность: 10-A\n\n'
-        for p in data['ППТ-10-А']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-10-А']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 15-A\n\n'
-        for p in data['ППТ-15-А']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-15-А']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 15-Б\n\n'
-        for p in data['ППТ-15-Б']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-15-Б']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 20-А\n\n'
-        for p in data['ППТ-20-А']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-20-А']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 25-А\n\n'
-        for p in data['ППТ-25-А']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-25-А']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 25-Б\n\n'
-        for p in data['ППТ-25-Б']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-25-Б']['1000*500мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 35-A\n\n'
-        for p in data['ППТ-35-А']['1000*500мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-35-А']['1000*500мм'][p]} руб.</b>\n"
-        answer += '\n📏 Размер листа: 1000x1000мм:\n'
-        answer += f'\nПлотность: 10-A\n\n'
-        for p in data['ППТ-10-А']['1000*1000мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-10-А']['1000*1000мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 15-A\n\n'
-        for p in data['ППТ-15-А']['1000*1000мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-15-А']['1000*1000мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 15-Б\n\n'
-        for p in data['ППТ-20-А']['1000*1000мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-20-А']['1000*1000мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 25-А\n\n'
-        for p in data['ППТ-25-А']['1000*1000мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-25-А']['1000*1000мм'][p]} руб.</b>\n"
-        answer += f'\nПлотность: 35-A\n\n'
-        for p in data['ППТ-35-А']['1000*1000мм']:
-            answer += f"🔸 {p}: <b>{'%.2f' % data['ППТ-35-А']['1000*1000мм'][p]} руб.</b>\n"
-    keyboard.add(
-        '📦 Цена за 1м3',
-        '✳ Меню',
-        '✅ Рассчитать пенопласт',
-    )
+    answer = db.get_ppt_one_sheet()
     await message.answer(
         text=answer,
         reply_markup=keyboard,
@@ -649,11 +603,7 @@ async def get_ppt_price_for_one(message: types.Message):
     'профиль'
 ]))
 async def get_profile(message: types.Message):
-    answer = '💵 Цена 1шт (3м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PROFILE')
-        for pr in data:
-            answer += f'🔸 {pr}: <b>{"%.2f" % data[pr]} руб.</b>\n'
+    answer = db.get_profile()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -665,11 +615,7 @@ async def get_profile(message: types.Message):
     'сетка штукатурная'
 ]))
 async def get_fiberglass_mesh(message: types.Message):
-    answer = '💵 Цена за 1м2: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('FIBERGLASS_MESH')
-        for mesh in data:
-            answer += f'🔸 {mesh}: <b>{"%.2f" % data[mesh]} руб.</b>\n'
+    answer = db.get_fiberglass_mesh()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -701,11 +647,7 @@ async def get_fittings(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 прут: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Арматура']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Арматура"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Арматура')
     keyboard.add(
         '🔹 Трубы профильные',
         '🔻 Уголок стальной',
@@ -728,11 +670,7 @@ async def get_pipe(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 трубу (6м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Трубы профильные']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Трубы профильные"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Трубы профильные')
     keyboard.add(
         '🔺 Арматура',
         '🔻 Уголок стальной',
@@ -755,11 +693,7 @@ async def get_corner(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 уголок (6м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Уголок стальной']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Уголок стальной"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Уголок стальной')
     keyboard.add(
         '🔺 Арматура',
         '🔹 Трубы профильные',
@@ -808,11 +742,7 @@ async def get_dry_mixes(message: types.Message):
     'гидроизоляция'
 ]))
 async def get_waterproofing(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Гидроизоляция']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Гидроизоляция"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Гидроизоляция')
     await message.answer(
         text=answer,
         parse_mode='HTML'
