@@ -145,7 +145,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_ppt_one(self) -> str:
+    def get_ppt_one_sheet(self) -> str:
         """ Пенопласт за 1 лист """
 
         conn = sqlite3.connect(self.db_name)

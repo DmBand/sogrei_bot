@@ -590,7 +590,7 @@ async def get_ppt_price_for_one(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = db.get_ppt_one()
+    answer = db.get_ppt_one_sheet()
     await message.answer(
         text=answer,
         reply_markup=keyboard,
