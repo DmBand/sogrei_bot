@@ -615,11 +615,7 @@ async def get_profile(message: types.Message):
     'сетка штукатурная'
 ]))
 async def get_fiberglass_mesh(message: types.Message):
-    answer = '💵 Цена за 1м2: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('FIBERGLASS_MESH')
-        for mesh in data:
-            answer += f'🔸 {mesh}: <b>{"%.2f" % data[mesh]} руб.</b>\n'
+    answer = db.get_fiberglass_mesh()
     await message.answer(
         text=answer,
         parse_mode='HTML'

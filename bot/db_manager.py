@@ -220,6 +220,27 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_fiberglass_mesh(self) -> str:
+        """ Сетка штукатурная """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 5 AND in_stock = 1 "
+            "ORDER BY price"
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1м2: 💵\n\n'
+            for dry in data:
+                answer += f'🔸 {dry[0]}: <b>{"%.2f" % dry[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
+
+
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()
 #
