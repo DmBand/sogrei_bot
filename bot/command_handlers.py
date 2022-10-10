@@ -693,11 +693,7 @@ async def get_corner(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    answer = '💵 Цена за 1 уголок (6м): 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('STEEL')
-        for st in data['Уголок стальной']:
-            answer += f'🔸 {st}: <b>{"%.2f" % data["Уголок стальной"][st]} руб.</b>\n'
+    answer = db.get_steel(description='Уголок стальной')
     keyboard.add(
         '🔺 Арматура',
         '🔹 Трубы профильные',
