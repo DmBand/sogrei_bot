@@ -5,9 +5,9 @@ from aiogram import (Bot,
                      types)
 from aiogram.dispatcher.filters import Text
 
-from admin import check_permission
-from db_manager import DBHandler
-from secret import TOKEN
+from .admin import check_permission
+from .db_manager import DBHandler
+from .secret import TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)

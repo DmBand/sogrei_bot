@@ -1,12 +1,11 @@
 import sqlite3
 
-from ppt_price_for_one_calculator import get_price_for_one
+from .ppt_price_for_one_calculator import get_price_for_one
 
 
 class DBHandler:
     def __init__(self, db_name='sogreym_db'):
         self.db_name = db_name
-        # self.conn = sqlite3.connect(self.db_name)
 
     def edit_price(self, product: str = None):
         pass
@@ -349,9 +348,3 @@ class DBHandler:
             answer = 'К сожалению, на текущий момент товара нет в наличии...'
         conn.close()
         return answer
-
-# conn = sqlite3.connect('../sogreym_db')
-# cursor = conn.cursor()
-#
-# res = cursor.execute('SELECT * FROM category;')
-# print(res.fetchall())
