@@ -196,15 +196,9 @@ async def get_dowel(message: types.Message):
     'стальной гвоздь'
 ]))
 async def get_steel_dowel(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = db.get_dowel('Стальной гвоздь')
-    keyboard.add(
-        '🔨 Пластиковый гвоздь',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -215,15 +209,9 @@ async def get_steel_dowel(message: types.Message):
     'пластиковый гвоздь'
 ]))
 async def get_plastic_dowel(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = db.get_dowel('Пластиковый гвоздь')
-    keyboard.add(
-        '⚒ Стальной гвоздь',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
