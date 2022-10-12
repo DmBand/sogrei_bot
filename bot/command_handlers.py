@@ -421,14 +421,15 @@ async def get_paints_condor_schools(message: types.Message):
 async def get_paints_kapral(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Выберите тип'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Kapral')
-        btns = [b for b in data]
-        keyboard.add(
-            *btns,
-            '⬅ Краски',
-            '✳ Меню',
-        )
+    buttons = [
+        'Интерьерная',
+        'Моющаяся',
+        'Супербелая',
+        'Фасадная',
+        '⬅ Краски',
+        '✳ Меню',
+    ]
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
