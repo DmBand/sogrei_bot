@@ -270,7 +270,7 @@ async def get_plastic_dowel(message: types.Message):
 ]))
 async def get_paints(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = [
+    buttons = [
         '🔻 Тайфун Мастер',
         '🔸 Condor',
         '🔹 Kapral',
@@ -279,7 +279,7 @@ async def get_paints(message: types.Message):
         '✳ Меню',
     ]
     answer = '👇 Выберите тип'
-    keyboard.add(*btns)
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
