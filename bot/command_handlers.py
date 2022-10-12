@@ -311,10 +311,17 @@ async def get_paints_taifun(message: types.Message):
 async def get_paints_condor(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Выберите тип'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('PAINT').get('Condor')
-        btns = [b for b in data]
-        keyboard.add(*btns, '⬅ Краски', '✳ Меню')
+    buttons = [
+        'Белые интерьеры',
+        'Для потолков',
+        'Кухни и ванные',
+        'Латексная',
+        'Фасады',
+        'Школы и офисы',
+        '⬅ Краски',
+        '✳ Меню'
+    ]
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
