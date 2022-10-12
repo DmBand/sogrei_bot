@@ -1,18 +1,18 @@
-import json
 import math
 import logging
-from aiogram import Bot, Dispatcher, types
+from aiogram import (Bot,
+                     Dispatcher,
+                     types)
 from aiogram.dispatcher.filters import Text
 
 from admin import check_permission
 from db_manager import DBHandler
 from secret import TOKEN
-from ppt_price_for_one_calculator import get_price_for_one
-
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 db = DBHandler()
+logging.basicConfig(level=logging.INFO)
 
 CATEGORIES = [
     'Гипсокартон',
@@ -37,11 +37,6 @@ main_menu = '❗ ВСЕ ЦЕНЫ НА ТОВАР УКАЗАНЫ <b>БЕЗ УЧЕ
             '<a href="https://www.instagram.com/sogrey_m.grodno/"><b>🌄 Следите за нами в Instagram</b></a>\n\n' \
             '<b>Выберите категорию товара, \n' \
             'цену которого хотите узнать 👇</b>\n'
-
-logging.basicConfig(level=logging.INFO)
-
-bot = Bot(token=TOKEN)
-dp = Dispatcher(bot)
 
 
 @dp.message_handler(commands=[
@@ -120,14 +115,14 @@ async def get_contacts(message: types.Message):
 ]))
 async def get_drywall(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = [
+    buttons = [
         '🔥 Огнеупорный',
         '💧 Влагостойкий',
         '✨ Обычный',
         '✳ Меню',
     ]
     answer = '👇 Выберите тип'
-    keyboard.add(*btns)
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
@@ -212,13 +207,13 @@ async def get_dowel(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    btns = [
+    buttons = [
         '⚒ Стальной гвоздь',
         '🔨 Пластиковый гвоздь',
         '✳ Меню',
     ]
     answer = '👇 Выберите тип'
-    keyboard.add(*btns)
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
@@ -1074,4 +1069,3 @@ async def admin(message: types.Message):
     else:
 
         await message.answer(text='Yes')
-
