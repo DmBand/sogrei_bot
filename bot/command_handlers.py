@@ -777,14 +777,16 @@ async def get_glues(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    btn = db.get_glues_description()
-    btns = [
-        *btn,
+    buttons = [
+        'Гипсовые',
+        'Для блоков',
+        'Для систем теплоизоляции',
+        'Облицовочные',
         '⬅ Сухие смеси',
         '✳ Меню',
     ]
     answer = '👇 Выберите тип'
-    keyboard.add(*btns)
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
