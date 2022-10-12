@@ -755,11 +755,7 @@ async def get_waterproofing(message: types.Message):
     'гипс строительный'
 ]))
 async def get_gypsum(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Гипс строительный']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Гипс строительный"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Гипс строительный')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -797,11 +793,10 @@ async def get_glues(message: types.Message):
     'гипсовые'
 ]))
 async def get_gypsum_glue(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES').get('Клеевые составы')
-        for i in data['Гипсовые']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Гипсовые"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(
+        description='Клеевые составы',
+        description2='Гипсовые'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
