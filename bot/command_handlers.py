@@ -867,11 +867,7 @@ async def get_masonry_composition(message: types.Message):
     'короед'
 ]))
 async def get_koroed(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Короед']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Короед"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Короед')
     await message.answer(
         text=answer,
         parse_mode='HTML'
