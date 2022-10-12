@@ -880,11 +880,7 @@ async def get_koroed(message: types.Message):
     'корник'
 ]))
 async def get_kornik(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Корник']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Корник"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Корник')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -897,11 +893,7 @@ async def get_kornik(message: types.Message):
     'самонивелиры'
 ]))
 async def get_self_leveling(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Самонивелиры']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Самонивелиры"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Самонивелиры')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -914,11 +906,7 @@ async def get_self_leveling(message: types.Message):
     'стяжки'
 ]))
 async def get_creed_mix(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Стяжки']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Стяжки"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Стяжки')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -931,11 +919,7 @@ async def get_creed_mix(message: types.Message):
     'цемент'
 ]))
 async def get_cement(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Цемент']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Цемент"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Цемент')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -948,11 +932,7 @@ async def get_cement(message: types.Message):
     'шпатлевка'
 ]))
 async def get_putty(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Шпатлевка']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Шпатлевка"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Шпатлевка')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -965,11 +945,7 @@ async def get_putty(message: types.Message):
     'штукатурка'
 ]))
 async def get_plaster(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Штукатурка']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Штукатурка"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Штукатурка')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -982,11 +958,7 @@ async def get_plaster(message: types.Message):
     'шуба'
 ]))
 async def get_shuba(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Шуба']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Шуба"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Шуба')
     await message.answer(
         text=answer,
         parse_mode='HTML'
