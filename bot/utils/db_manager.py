@@ -1,12 +1,11 @@
 import sqlite3
 
-from ppt_price_for_one_calculator import get_price_for_one
+from .ppt_price_for_one_calculator import get_price_for_one
 
 
 class DBHandler:
     def __init__(self, db_name='sogreym_db'):
         self.db_name = db_name
-        # self.conn = sqlite3.connect(self.db_name)
 
     def edit_price(self, product: str = None):
         pass
@@ -200,6 +199,19 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_ppt_cubic_meter_for_calculator(self) -> dict:
+        """ Для расчета пенопласта """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 8"
+        )
+        prices_per_cubic_meter = {i[0]: i[1] for i in row.fetchall()}
+        conn.close()
+        return prices_per_cubic_meter
+
     def get_profile(self) -> str:
         """ Профиль для гипсокартона """
 
@@ -318,9 +330,21 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_osb(self) -> str:
+        """ OSB """
 
-# conn = sqlite3.connect('../sogreym_db')
-# cursor = conn.cursor()
-#
-# res = cursor.execute('SELECT * FROM category;')
-# print(res.fetchall())
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 2 AND in_stock = 1 "
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1 лист: 💵\n\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
