@@ -524,19 +524,9 @@ async def get_ppt_price(message: types.Message):
     'цена за 1м3'
 ]))
 async def get_ppt_price_per_cubic_meter(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_ppt_cubic_meter()
-    keyboard.add(
-        '📃 Цена за 1 лист',
-        '✳ Меню',
-        '✅ Рассчитать пенопласт',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -547,14 +537,9 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
     'цена за 1 лист'
 ]))
 async def get_ppt_price_for_one(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_ppt_one_sheet()
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -609,19 +594,9 @@ async def get_steel(message: types.Message):
     'арматура'
 ]))
 async def get_fittings(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_steel(description='Арматура')
-    keyboard.add(
-        '🔹 Трубы профильные',
-        '🔻 Уголок стальной',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -632,19 +607,9 @@ async def get_fittings(message: types.Message):
     'трубы профильные'
 ]))
 async def get_pipe(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_steel(description='Трубы профильные')
-    keyboard.add(
-        '🔺 Арматура',
-        '🔻 Уголок стальной',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -655,19 +620,9 @@ async def get_pipe(message: types.Message):
     'уголок стальной'
 ]))
 async def get_corner(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_steel(description='Уголок стальной')
-    keyboard.add(
-        '🔺 Арматура',
-        '🔹 Трубы профильные',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
