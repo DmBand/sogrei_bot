@@ -823,11 +823,10 @@ async def get_glue_for_blocks(message: types.Message):
     'для систем теплоизоляции'
 ]))
 async def get_glue_for_thermal_insulation_systems(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES').get('Клеевые составы')
-        for i in data['Для систем теплоизоляции']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Для систем теплоизоляции"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(
+        description='Клеевые составы',
+        description2='Для систем теплоизоляции'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
