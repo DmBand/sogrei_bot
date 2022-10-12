@@ -628,7 +628,12 @@ async def get_fiberglass_mesh(message: types.Message):
 ]))
 async def get_steel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = ['🔺 Арматура', '🔹 Трубы профильные', '🔻 Уголок стальной', '✳ Меню']
+    btns = [
+        '🔺 Арматура',
+        '🔹 Трубы профильные',
+        '🔻 Уголок стальной',
+        '✳ Меню'
+    ]
     answer = '👇 Выберите тип'
     keyboard.add(*btns)
     await message.answer(
