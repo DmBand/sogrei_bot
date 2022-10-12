@@ -967,11 +967,7 @@ async def get_shuba(message: types.Message):
 
 @dp.message_handler(Text(equals='OSB-плиты влагостойкие'))
 async def get_osb(message: types.Message):
-    answer = '💵 Цена за 1 лист: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('OSB_PLATE')
-        for osb in data:
-            answer += f'🔸 {osb}: <b>{"%.2f" % data[osb]} руб.</b>\n'
+    answer = db.get_osb()
     await message.answer(
         text=answer,
         parse_mode='HTML'

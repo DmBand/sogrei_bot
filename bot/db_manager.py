@@ -318,6 +318,24 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_osb(self) -> str:
+        """ OSB """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 2 AND in_stock = 1 "
+        )
+        data = row.fetchall()
+        if data:
+            answer = '💵 Цена за 1 лист: 💵\n\n'
+            for d in data:
+                answer += f'🔸 {d[0]}: <b>{"%.2f" % d[1]} руб.</b>\n'
+        else:
+            answer = 'К сожалению, на текущий момент товара нет в наличии...'
+        conn.close()
+        return answer
 
 # conn = sqlite3.connect('../sogreym_db')
 # cursor = conn.cursor()
