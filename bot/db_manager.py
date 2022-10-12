@@ -331,6 +331,21 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_glues_description(self) -> list:
+        """ Список клеевых составов для кнопок """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT DISTINCT description_2 "
+            "FROM goods "
+            "WHERE description = 'Клеевые составы' "
+            "ORDER BY description_2"
+        )
+        data = row.fetchall()
+        titles = [i[0] for i in data]
+        conn.close()
+        return titles
+
     def get_osb(self) -> str:
         """ OSB """
 

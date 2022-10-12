@@ -772,9 +772,7 @@ async def get_glues(message: types.Message):
         resize_keyboard=True,
         row_width=2
     )
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-    btn = [k for k in data['Клеевые составы'].keys()]
+    btn = db.get_glues_description()
     btns = [
         *btn,
         '⬅ Сухие смеси',
