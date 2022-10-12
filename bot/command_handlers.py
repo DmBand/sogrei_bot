@@ -854,11 +854,7 @@ async def get_facing(message: types.Message):
     'кладочные составы'
 ]))
 async def get_masonry_composition(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES')
-        for i in data['Кладочные составы']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Кладочные составы"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(description='Кладочные составы')
     await message.answer(
         text=answer,
         parse_mode='HTML'
