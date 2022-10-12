@@ -135,19 +135,9 @@ async def get_drywall(message: types.Message):
     'огнеупорный'
 ]))
 async def get_refactory_drywall(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_drywall('Огнеупорный')
-    keyboard.add(
-        '💧 Влагостойкий',
-        '✨ Обычный',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -158,19 +148,9 @@ async def get_refactory_drywall(message: types.Message):
     'влагостойкий'
 ]))
 async def get_moisture_resistant_drywal(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_drywall('Влагостойкий')
-    keyboard.add(
-        '🔥 Огнеупорный',
-        '✨ Обычный',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
@@ -181,19 +161,9 @@ async def get_moisture_resistant_drywal(message: types.Message):
     'обычный'
 ]))
 async def get_simple_drywall(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(
-        resize_keyboard=True,
-        row_width=2
-    )
     answer = db.get_drywall('Обычный')
-    keyboard.add(
-        '🔥 Огнеупорный',
-        '💧 Влагостойкий',
-        '✳ Меню',
-    )
     await message.answer(
         text=answer,
-        reply_markup=keyboard,
         parse_mode='HTML'
     )
 
