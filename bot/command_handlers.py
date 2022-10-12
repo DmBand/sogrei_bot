@@ -808,11 +808,10 @@ async def get_gypsum_glue(message: types.Message):
     'для блоков'
 ]))
 async def get_glue_for_blocks(message: types.Message):
-    answer = '💵 Цена за 1 мешок: 💵\n\n'
-    with open('products.json', 'r', encoding='utf8') as f:
-        data = json.load(f).get('DRY_MIXES').get('Клеевые составы')
-        for i in data['Для блоков']:
-            answer += f'🔸 {i}: <b>{"%.2f" % data["Для блоков"][i]} руб.</b>\n'
+    answer = db.get_dry_mixes(
+        description='Клеевые составы',
+        description2='Для блоков'
+    )
     await message.answer(
         text=answer,
         parse_mode='HTML'
