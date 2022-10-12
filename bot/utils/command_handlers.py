@@ -634,7 +634,7 @@ async def get_corner(message: types.Message):
 ]))
 async def get_dry_mixes(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btns = [
+    buttons = [
         '💧 Гидроизоляция',
         '🟥 Гипс строительный',
         '🟧 Клеевые составы',
@@ -650,7 +650,7 @@ async def get_dry_mixes(message: types.Message):
         '✳ Меню',
     ]
     answer = '👇 Выберите тип'
-    keyboard.add(*btns)
+    keyboard.add(*buttons)
     await message.answer(
         text=answer,
         reply_markup=keyboard
