@@ -1009,7 +1009,7 @@ async def get_ppt_calculator(message: types.Message):
                     or data[3].strip().upper() not in sheet_type:
                 raise ValueError
             if int(data[1]) == 1 and (int(data[2]) in (10, 15) or data[3].strip().upper() == 'Б'):
-                raise await msg.answer(
+                await msg.answer(
                     text='🙁 К сожалению, пенопласт толщиной 1 см\n'
                          'не может быть ниже <b>20</b> плотности\n'
                          'и только <b>листы без паза</b>...',
@@ -1029,9 +1029,8 @@ async def get_ppt_calculator(message: types.Message):
             num_of_small_sheets = math.ceil(square * 2)
             # объем
             capacity = num_of_small_sheets * 0.5 * (thickness / 100)
-            with open('products.json', 'r', encoding='utf8') as f:
-                price_per_cubic_metr = json.load(f).get('PPT_PRICE_PER_CUBIC_METER')
-                price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
+            price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
+            price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
             await msg.answer(
                 text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
                      f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'

@@ -200,6 +200,19 @@ class DBHandler:
         conn.close()
         return answer
 
+    def get_ppt_cubic_meter_for_calculator(self) -> dict:
+        """ Для расчета пенопласта """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name, price "
+            "FROM goods "
+            "WHERE category = 8"
+        )
+        prices_per_cubic_meter = {i[0]: i[1] for i in row.fetchall()}
+        conn.close()
+        return prices_per_cubic_meter
+
     def get_profile(self) -> str:
         """ Профиль для гипсокартона """
 
