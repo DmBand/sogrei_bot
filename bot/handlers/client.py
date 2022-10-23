@@ -1,11 +1,13 @@
+# TODO Не работает расчет пенопласта
+
 import math
 
 from aiogram import Dispatcher, types
 from aiogram.dispatcher.filters import Text
 
-from .utils import db_manager
+from .utils.db_manager import DBHandler
 
-db = db_manager.DBHandler()
+db = DBHandler()
 
 CATEGORIES = [
     'Гипсокартон',
