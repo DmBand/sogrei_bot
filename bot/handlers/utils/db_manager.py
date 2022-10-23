@@ -13,6 +13,19 @@ class DBHandler:
     def edit_stock(self):
         pass
 
+    def get_categories(self) -> list:
+        """ Категории товаров """
+
+        conn = sqlite3.connect(self.db_name)
+        row = conn.execute(
+            "SELECT name "
+            "FROM category "
+            "ORDER BY name"
+        )
+        data = row.fetchall()
+        categories = [cat[0] for cat in data]
+        return categories
+
     def get_drywall(self, description: str = None) -> str or None:
         """ Гипсокартон """
 

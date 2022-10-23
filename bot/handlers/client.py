@@ -1,18 +1,13 @@
+# TODO Не работает расчет пенопласта
+
 import math
-import logging
-from aiogram import (Bot,
-                     Dispatcher,
-                     types)
+
+from aiogram import Dispatcher, types
 from aiogram.dispatcher.filters import Text
 
-from .admin import check_permission
-from .db_manager import DBHandler
-from .secret import TOKEN
+from .utils.db_manager import DBHandler
 
-bot = Bot(token=TOKEN)
-dp = Dispatcher(bot)
 db = DBHandler()
-logging.basicConfig(level=logging.INFO)
 
 CATEGORIES = [
     'Гипсокартон',
@@ -39,12 +34,6 @@ main_menu = '❗ ВСЕ ЦЕНЫ НА ТОВАР УКАЗАНЫ <b>БЕЗ УЧЕ
             'цену которого хотите узнать 👇</b>\n'
 
 
-@dp.message_handler(commands=[
-    'start',
-    'старт',
-    'menu',
-    'Menu'
-])
 async def start(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(
         resize_keyboard=True,
@@ -59,11 +48,6 @@ async def start(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '✳ Меню',
-    'Меню',
-    'меню'
-]))
 async def get_menu(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(
         resize_keyboard=True,
@@ -78,11 +62,6 @@ async def get_menu(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '📄 Контакты',
-    'Контакты',
-    'контакты'
-]))
 async def get_contacts(message: types.Message):
     answer = '<b>✔ ЧПТУП "Согрей-М"\n</b>' \
              'г.Гродно, ул.Соколовского, 20Г\n\n' \
@@ -109,10 +88,6 @@ async def get_contacts(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Гипсокартон',
-    'гипсокартон'
-]))
 async def get_drywall(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = [
@@ -129,11 +104,6 @@ async def get_drywall(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔥 Огнеупорный',
-    'Огнеупорный',
-    'огнеупорный'
-]))
 async def get_refactory_drywall(message: types.Message):
     answer = db.get_drywall('Огнеупорный')
     await message.answer(
@@ -142,11 +112,6 @@ async def get_refactory_drywall(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '💧 Влагостойкий',
-    'Влагостойкий',
-    'влагостойкий'
-]))
 async def get_moisture_resistant_drywal(message: types.Message):
     answer = db.get_drywall('Влагостойкий')
     await message.answer(
@@ -155,11 +120,6 @@ async def get_moisture_resistant_drywal(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '✨ Обычный',
-    'Обычный',
-    'обычный'
-]))
 async def get_simple_drywall(message: types.Message):
     answer = db.get_drywall('Обычный')
     await message.answer(
@@ -168,10 +128,6 @@ async def get_simple_drywall(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Дюбеля для теплоизоляции',
-    'дюбеля для теплоизоляции'
-]))
 async def get_dowel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(
         resize_keyboard=True,
@@ -190,11 +146,6 @@ async def get_dowel(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '⚒ Стальной гвоздь',
-    'Стальной гвоздь',
-    'стальной гвоздь'
-]))
 async def get_steel_dowel(message: types.Message):
     answer = db.get_dowel('Стальной гвоздь')
     await message.answer(
@@ -203,11 +154,6 @@ async def get_steel_dowel(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔨 Пластиковый гвоздь',
-    'Пластиковый гвоздь',
-    'пластиковый гвоздь'
-]))
 async def get_plastic_dowel(message: types.Message):
     answer = db.get_dowel('Пластиковый гвоздь')
     await message.answer(
@@ -216,11 +162,6 @@ async def get_plastic_dowel(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '⬅ Краски',
-    'Краски',
-    'краски'
-]))
 async def get_paints(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = [
@@ -239,13 +180,6 @@ async def get_paints(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔻 Тайфун Мастер',
-    'Тайфун Мастер',
-    'Тайфун мастер',
-    'тайфун Мастер',
-    'тайфун мастер'
-]))
 async def get_paints_taifun(message: types.Message):
     answer = db.get_paints(description='Тайфун Мастер')
     await message.answer(
@@ -254,13 +188,6 @@ async def get_paints_taifun(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔸 Condor',
-    'Condor',
-    'сondor',
-    'Кондор',
-    'кондор'
-]))
 async def get_paints_condor(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Выберите тип'
@@ -281,10 +208,6 @@ async def get_paints_condor(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Белые интерьеры',
-    'белые интерьеры'
-]))
 async def get_paints_condor_white_interiors(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -296,10 +219,6 @@ async def get_paints_condor_white_interiors(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Для потолков',
-    'для потолков'
-]))
 async def get_paints_condor_ceiling(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -311,10 +230,6 @@ async def get_paints_condor_ceiling(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Кухни и ванные',
-    'кухни и ванные'
-]))
 async def get_paints_condor_kitchen(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -326,10 +241,6 @@ async def get_paints_condor_kitchen(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Латексная',
-    'латексная'
-]))
 async def get_paints_condor_latex(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -341,10 +252,6 @@ async def get_paints_condor_latex(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Фасады',
-    'фасады'
-]))
 async def get_paints_condor_front(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -356,10 +263,6 @@ async def get_paints_condor_front(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Школы и офисы',
-    'школы и офисы'
-]))
 async def get_paints_condor_schools(message: types.Message):
     answer = db.get_paints(
         description='Condor',
@@ -371,13 +274,6 @@ async def get_paints_condor_schools(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔹 Kapral',
-    'Kapral',
-    'kapral',
-    'Капрал',
-    'капрал'
-]))
 async def get_paints_kapral(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Выберите тип'
@@ -396,10 +292,6 @@ async def get_paints_kapral(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Интерьерная',
-    'интерьерная'
-]))
 async def get_paints_kapral_interior(message: types.Message):
     answer = db.get_paints(
         description='Kapral',
@@ -411,10 +303,6 @@ async def get_paints_kapral_interior(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Моющаяся',
-    'моющаяся'
-]))
 async def get_paints_kapral_washable(message: types.Message):
     answer = db.get_paints(
         description='Kapral',
@@ -426,10 +314,6 @@ async def get_paints_kapral_washable(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Супербелая',
-    'супербелая'
-]))
 async def get_paints_kapral_superwhite(message: types.Message):
     answer = db.get_paints(
         description='Kapral',
@@ -441,10 +325,6 @@ async def get_paints_kapral_superwhite(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Фасадная',
-    'фасадная'
-]))
 async def get_paints_kapral_front(message: types.Message):
     answer = db.get_paints(
         description='Kapral',
@@ -456,13 +336,6 @@ async def get_paints_kapral_front(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔺 Malevanka',
-    'Malevanka',
-    'malevanka',
-    'Малеванка',
-    'малеванка'
-]))
 async def get_paints_malevanka(message: types.Message):
     answer = db.get_paints(description='Malevanka')
     await message.answer(
@@ -471,13 +344,6 @@ async def get_paints_malevanka(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '▫ Sniezka',
-    'Sniezka',
-    'sniezka',
-    'Снежка',
-    'снежка'
-]))
 async def get_paints_sniezka(message: types.Message):
     answer = db.get_paints(description='Sniezka')
     await message.answer(
@@ -486,10 +352,6 @@ async def get_paints_sniezka(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Минеральная вата',
-    'минеральная вата'
-]))
 async def get_mineral_wool(message: types.Message):
     answer = db.get_mineral_wool()
     await message.answer(
@@ -498,11 +360,6 @@ async def get_mineral_wool(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '✨ Пенопласт',
-    'пенопласт',
-    'пенопласт'
-]))
 async def get_ppt_price(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     answer = '👇 Какую цену хотите узнать?'
@@ -518,11 +375,6 @@ async def get_ppt_price(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '📦 Цена за 1м3',
-    'Цена за 1м3',
-    'цена за 1м3'
-]))
 async def get_ppt_price_per_cubic_meter(message: types.Message):
     answer = db.get_ppt_cubic_meter()
     await message.answer(
@@ -531,11 +383,6 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '📃 Цена за 1 лист',
-    'Цена за 1 лист',
-    'цена за 1 лист'
-]))
 async def get_ppt_price_for_one(message: types.Message):
     answer = db.get_ppt_one_sheet()
     await message.answer(
@@ -544,10 +391,6 @@ async def get_ppt_price_for_one(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Профиль',
-    'профиль'
-]))
 async def get_profile(message: types.Message):
     answer = db.get_profile()
     await message.answer(
@@ -556,10 +399,6 @@ async def get_profile(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Сетка штукатурная',
-    'сетка штукатурная'
-]))
 async def get_fiberglass_mesh(message: types.Message):
     answer = db.get_fiberglass_mesh()
     await message.answer(
@@ -568,10 +407,6 @@ async def get_fiberglass_mesh(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Сталь',
-    'сталь'
-]))
 async def get_steel(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btns = [
@@ -588,11 +423,6 @@ async def get_steel(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔺 Арматура',
-    'Арматура',
-    'арматура'
-]))
 async def get_fittings(message: types.Message):
     answer = db.get_steel(description='Арматура')
     await message.answer(
@@ -601,11 +431,6 @@ async def get_fittings(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔹 Трубы профильные',
-    'Трубы профильные',
-    'трубы профильные'
-]))
 async def get_pipe(message: types.Message):
     answer = db.get_steel(description='Трубы профильные')
     await message.answer(
@@ -614,11 +439,6 @@ async def get_pipe(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔻 Уголок стальной',
-    'Уголок стальной',
-    'уголок стальной'
-]))
 async def get_corner(message: types.Message):
     answer = db.get_steel(description='Уголок стальной')
     await message.answer(
@@ -627,11 +447,6 @@ async def get_corner(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '⬅ Сухие смеси',
-    'Сухие смеси',
-    'сухие смеси'
-]))
 async def get_dry_mixes(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     buttons = [
@@ -657,11 +472,6 @@ async def get_dry_mixes(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '💧 Гидроизоляция',
-    'Гидроизоляция',
-    'гидроизоляция'
-]))
 async def get_waterproofing(message: types.Message):
     answer = db.get_dry_mixes(description='Гидроизоляция')
     await message.answer(
@@ -670,11 +480,6 @@ async def get_waterproofing(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟥 Гипс строительный',
-    'Гипс строительный',
-    'гипс строительный'
-]))
 async def get_gypsum(message: types.Message):
     answer = db.get_dry_mixes(description='Гипс строительный')
     await message.answer(
@@ -683,11 +488,6 @@ async def get_gypsum(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟧 Клеевые составы',
-    'Клеевые составы',
-    'клеевые составы'
-]))
 async def get_glues(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(
         resize_keyboard=True,
@@ -709,10 +509,6 @@ async def get_glues(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Гипсовые',
-    'гипсовые'
-]))
 async def get_gypsum_glue(message: types.Message):
     answer = db.get_dry_mixes(
         description='Клеевые составы',
@@ -724,10 +520,6 @@ async def get_gypsum_glue(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Для блоков',
-    'для блоков'
-]))
 async def get_glue_for_blocks(message: types.Message):
     answer = db.get_dry_mixes(
         description='Клеевые составы',
@@ -739,10 +531,6 @@ async def get_glue_for_blocks(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Для систем теплоизоляции',
-    'для систем теплоизоляции'
-]))
 async def get_glue_for_thermal_insulation_systems(message: types.Message):
     answer = db.get_dry_mixes(
         description='Клеевые составы',
@@ -754,10 +542,6 @@ async def get_glue_for_thermal_insulation_systems(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    'Облицовочные',
-    'облицовочные'
-]))
 async def get_facing(message: types.Message):
     answer = db.get_dry_mixes(
         description='Клеевые составы',
@@ -769,11 +553,6 @@ async def get_facing(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🧱 Кладочные составы',
-    'Кладочные составы',
-    'кладочные составы'
-]))
 async def get_masonry_composition(message: types.Message):
     answer = db.get_dry_mixes(description='Кладочные составы')
     await message.answer(
@@ -782,11 +561,6 @@ async def get_masonry_composition(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟨 Короед',
-    'Короед',
-    'короед'
-]))
 async def get_koroed(message: types.Message):
     answer = db.get_dry_mixes(description='Короед')
     await message.answer(
@@ -795,11 +569,6 @@ async def get_koroed(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟩 Корник',
-    'Корник',
-    'корник'
-]))
 async def get_kornik(message: types.Message):
     answer = db.get_dry_mixes(description='Корник')
     await message.answer(
@@ -808,11 +577,6 @@ async def get_kornik(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟫 Самонивелиры',
-    'Самонивелиры',
-    'самонивелиры'
-]))
 async def get_self_leveling(message: types.Message):
     answer = db.get_dry_mixes(description='Самонивелиры')
     await message.answer(
@@ -821,11 +585,6 @@ async def get_self_leveling(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🔴 Стяжки',
-    'Стяжки',
-    'стяжки'
-]))
 async def get_creed_mix(message: types.Message):
     answer = db.get_dry_mixes(description='Стяжки')
     await message.answer(
@@ -834,11 +593,6 @@ async def get_creed_mix(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '⚪ Цемент',
-    'Цемент',
-    'цемент'
-]))
 async def get_cement(message: types.Message):
     answer = db.get_dry_mixes(description='Цемент')
     await message.answer(
@@ -847,11 +601,6 @@ async def get_cement(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟡 Шпатлевка',
-    'Шпатлевка',
-    'шпатлевка'
-]))
 async def get_putty(message: types.Message):
     answer = db.get_dry_mixes(description='Шпатлевка')
     await message.answer(
@@ -860,11 +609,6 @@ async def get_putty(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟢 Штукатурка',
-    'Штукатурка',
-    'штукатурка'
-]))
 async def get_plaster(message: types.Message):
     answer = db.get_dry_mixes(description='Штукатурка')
     await message.answer(
@@ -873,11 +617,6 @@ async def get_plaster(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals=[
-    '🟣 Шуба',
-    'Шуба',
-    'шуба'
-]))
 async def get_shuba(message: types.Message):
     answer = db.get_dry_mixes(description='Шуба')
     await message.answer(
@@ -886,7 +625,6 @@ async def get_shuba(message: types.Message):
     )
 
 
-@dp.message_handler(Text(equals='OSB-плиты влагостойкие'))
 async def get_osb(message: types.Message):
     answer = db.get_osb()
     await message.answer(
@@ -909,76 +647,286 @@ ppt_calculator_text = f'❗ Для расчета пенопласта введ�
                       f'Введите ваши данные 👇'
 
 
-@dp.message_handler(Text(equals=[
-    '✅ Рассчитать пенопласт',
-    'Рассчитать пенопласт',
-    'рассчитать пенопласт'
-]))
 async def get_ppt_calculator(message: types.Message):
     await message.answer(
         text=ppt_calculator_text,
         parse_mode='HTML'
     )
 
-    @dp.message_handler()
-    async def ppt_calculator(msg: types.Message):
-        try:
-            data = msg.text.split(',')
-            if len(data) != 4 \
-                    or int(data[1]) not in ppt_thickness \
-                    or int(data[2]) not in ppt_density \
-                    or data[3].strip().upper() not in sheet_type:
-                raise ValueError
-            if int(data[1]) == 1 and (int(data[2]) in (10, 15) or data[3].strip().upper() == 'Б'):
-                await msg.answer(
-                    text='🙁 К сожалению, пенопласт толщиной 1 см\n'
-                         'не может быть ниже <b>20</b> плотности\n'
-                         'и только <b>листы без паза</b>...',
-                    parse_mode='HTML'
-                )
-            square = float(data[0])
-            thickness = int(data[1])
-            density = int(data[2])
-        except (TypeError, ValueError):
-            answer = '❗ НЕКОРРЕКТНЫЙ ВВОД ❗\n' + ppt_calculator_text
-            await msg.answer(text=answer, parse_mode='HTML')
-        else:
-            s_type = data[3].strip().upper()
-            # большие листы
-            num_of_large_sheets = math.ceil(square)
-            # маленькие листы
-            num_of_small_sheets = math.ceil(square * 2)
-            # объем
-            capacity = num_of_small_sheets * 0.5 * (thickness / 100)
-            price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
-            price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
+
+async def ppt_calculator(msg: types.Message):
+    try:
+        data = msg.text.split(',')
+        if len(data) != 4 \
+                or int(data[1]) not in ppt_thickness \
+                or int(data[2]) not in ppt_density \
+                or data[3].strip().upper() not in sheet_type:
+            raise ValueError
+        if int(data[1]) == 1 and (int(data[2]) in (10, 15) or data[3].strip().upper() == 'Б'):
             await msg.answer(
-                text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
-                     f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
-                     f'<i>Плотность:</i> <b>{density}</b>\n'
-                     f'<i>Тип листов:</i> <b>{"Без паза" if s_type == "А" else "С пазом"}</b>\n\n'
-                     f'📜 <i>Количество листов:</i>\n'
-                     f'<b>{num_of_large_sheets}шт</b> 1000*1000мм\n'
-                     f'<i>или</i>\n'
-                     f'<b>{num_of_small_sheets}шт</b> 1000*500мм\n\n'
-                     f'📦 <i>Объем:</i> <b>{"%.3f" % capacity}м3</b>\n\n'
-                     f'💵 <i>Примерная стоимость:</i>\n'
-                     f'<b>{"%.2f" % price} руб.</b>\n'
-                     f'<i>Примерная стоимость с учетом скидочной карты (3%):</i>\n'
-                     f'<b>{"%.2f" % (price - (price * 0.03))} руб.</b>\n\n'
-                     f'❗ Наличие листов нужного размера и количества\n'
-                     f'уточняйте по телефонам:\n'
-                     f'📞 +375297804352 <b>(МТС)</b>\n'
-                     f'📞 +375291990505 <b>(A1)</b>\n'
-                     f'📞 32-06-06 <b>(Городской)</b>',
+                text='🙁 К сожалению, пенопласт толщиной 1 см\n'
+                     'не может быть ниже <b>20</b> плотности\n'
+                     'и только <b>листы без паза</b>...',
                 parse_mode='HTML'
             )
-
-
-@dp.message_handler(commands=['admin'])
-async def admin(message: types.Message):
-    if not check_permission(message):
-        await message.answer('У Вас нет доступа к панели администратора.')
+        square = float(data[0])
+        thickness = int(data[1])
+        density = int(data[2])
+    except (TypeError, ValueError):
+        answer = '❗ НЕКОРРЕКТНЫЙ ВВОД ❗\n' + ppt_calculator_text
+        await msg.answer(text=answer, parse_mode='HTML')
     else:
+        s_type = data[3].strip().upper()
+        # большие листы
+        num_of_large_sheets = math.ceil(square)
+        # маленькие листы
+        num_of_small_sheets = math.ceil(square * 2)
+        # объем
+        capacity = num_of_small_sheets * 0.5 * (thickness / 100)
+        price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
+        price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
+        await msg.answer(
+            text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
+                 f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
+                 f'<i>Плотность:</i> <b>{density}</b>\n'
+                 f'<i>Тип листов:</i> <b>{"Без паза" if s_type == "А" else "С пазом"}</b>\n\n'
+                 f'📜 <i>Количество листов:</i>\n'
+                 f'<b>{num_of_large_sheets}шт</b> 1000*1000мм\n'
+                 f'<i>или</i>\n'
+                 f'<b>{num_of_small_sheets}шт</b> 1000*500мм\n\n'
+                 f'📦 <i>Объем:</i> <b>{"%.3f" % capacity}м3</b>\n\n'
+                 f'💵 <i>Примерная стоимость:</i>\n'
+                 f'<b>{"%.2f" % price} руб.</b>\n'
+                 f'<i>Примерная стоимость с учетом скидочной карты (3%):</i>\n'
+                 f'<b>{"%.2f" % (price - (price * 0.03))} руб.</b>\n\n'
+                 f'❗ Наличие листов нужного размера и количества\n'
+                 f'уточняйте по телефонам:\n'
+                 f'📞 +375297804352 <b>(МТС)</b>\n'
+                 f'📞 +375291990505 <b>(A1)</b>\n'
+                 f'📞 32-06-06 <b>(Городской)</b>',
+            parse_mode='HTML'
+        )
 
-        await message.answer(text='Yes')
+
+def register_client_handlers(dp: Dispatcher):
+    dp.register_message_handler(
+        start,
+        commands=['start', 'старт', 'menu', 'Menu']
+    )
+    dp.register_message_handler(
+        get_menu,
+        Text(equals=['✳ Меню', 'Меню', 'меню'])
+    )
+    dp.register_message_handler(
+        get_contacts,
+        Text(equals=['📄 Контакты', 'Контакты', 'контакты'])
+    )
+    dp.register_message_handler(
+        get_drywall,
+        Text(equals=['Гипсокартон', 'гипсокартон'])
+    )
+    dp.register_message_handler(
+        get_refactory_drywall,
+        Text(equals=['🔥 Огнеупорный', 'Огнеупорный', 'огнеупорный'])
+    )
+    dp.register_message_handler(
+        get_moisture_resistant_drywal,
+        Text(equals=['💧 Влагостойкий', 'Влагостойкий', 'влагостойкий'])
+    )
+    dp.register_message_handler(
+        get_simple_drywall,
+        Text(equals=['✨ Обычный', 'Обычный', 'обычный'])
+    )
+    dp.register_message_handler(
+        get_dowel,
+        Text(equals=['Дюбеля для теплоизоляции', 'дюбеля для теплоизоляции'])
+    )
+    dp.register_message_handler(
+        get_steel_dowel,
+        Text(equals=['⚒ Стальной гвоздь', 'Стальной гвоздь', 'стальной гвоздь'])
+    )
+    dp.register_message_handler(
+        get_plastic_dowel,
+        Text(equals=['🔨 Пластиковый гвоздь', 'Пластиковый гвоздь', 'пластиковый гвоздь'])
+    )
+    dp.register_message_handler(
+        get_paints,
+        Text(equals=['⬅ Краски', 'Краски', 'краски'])
+    )
+    dp.register_message_handler(
+        get_paints_taifun,
+        Text(equals=['🔻 Тайфун Мастер', 'Тайфун Мастер', 'Тайфун мастер', 'тайфун Мастер', 'тайфун мастер'])
+    )
+    dp.register_message_handler(
+        get_paints_condor,
+        Text(equals=['🔸 Condor', 'Condor', 'сondor', 'Кондор', 'кондор'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_white_interiors,
+        Text(equals=['Белые интерьеры', 'белые интерьеры'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_ceiling,
+        Text(equals=['Для потолков', 'для потолков'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_kitchen,
+        Text(equals=['Кухни и ванные', 'кухни и ванные'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_latex,
+        Text(equals=['Латексная', 'латексная'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_front,
+        Text(equals=['Фасады', 'фасады'])
+    )
+    dp.register_message_handler(
+        get_paints_condor_schools,
+        Text(equals=['Школы и офисы', 'школы и офисы'])
+    )
+    dp.register_message_handler(
+        get_paints_kapral,
+        Text(equals=['🔹 Kapral', 'Kapral', 'kapral', 'Капрал', 'капрал'])
+    )
+    dp.register_message_handler(
+        get_paints_kapral_interior,
+        Text(equals=['Интерьерная', 'интерьерная'])
+    )
+    dp.register_message_handler(
+        get_paints_kapral_washable,
+        Text(equals=['Моющаяся', 'моющаяся'])
+    )
+    dp.register_message_handler(
+        get_paints_kapral_superwhite,
+        Text(equals=['Супербелая', 'супербелая'])
+    )
+    dp.register_message_handler(
+        get_paints_kapral_front,
+        Text(equals=['Фасадная', 'фасадная'])
+    )
+    dp.register_message_handler(
+        get_paints_malevanka,
+        Text(equals=['🔺 Malevanka', 'Malevanka', 'malevanka', 'Малеванка', 'малеванка'])
+    )
+    dp.register_message_handler(
+        get_paints_sniezka,
+        Text(equals=['▫ Sniezka', 'Sniezka', 'sniezka', 'Снежка', 'снежка'])
+    )
+    dp.register_message_handler(
+        get_mineral_wool,
+        Text(equals=['Минеральная вата', 'минеральная вата'])
+    )
+    dp.register_message_handler(
+        get_ppt_price,
+        Text(equals=['✨ Пенопласт', 'пенопласт', 'пенопласт'])
+    )
+    dp.register_message_handler(
+        get_ppt_price_per_cubic_meter,
+        Text(equals=['📦 Цена за 1м3', 'Цена за 1м3', 'цена за 1м3'])
+    )
+    dp.register_message_handler(
+        get_ppt_price_for_one,
+        Text(equals=['📃 Цена за 1 лист', 'Цена за 1 лист', 'цена за 1 лист'])
+    )
+    dp.register_message_handler(
+        get_profile,
+        Text(equals=['Профиль', 'профиль'])
+    )
+    dp.register_message_handler(
+        get_fiberglass_mesh,
+        Text(equals=['Сетка штукатурная', 'сетка штукатурная'])
+    )
+    dp.register_message_handler(
+        get_steel,
+        Text(equals=['Сталь', 'сталь'])
+    )
+    dp.register_message_handler(
+        get_fittings,
+        Text(equals=['🔺 Арматура', 'Арматура', 'арматура'])
+    )
+    dp.register_message_handler(
+        get_pipe,
+        Text(equals=['🔹 Трубы профильные', 'Трубы профильные', 'трубы профильные'])
+    )
+    dp.register_message_handler(
+        get_corner,
+        Text(equals=['🔻 Уголок стальной', 'Уголок стальной', 'уголок стальной'])
+    )
+    dp.register_message_handler(
+        get_dry_mixes,
+        Text(equals=['⬅ Сухие смеси', 'Сухие смеси', 'сухие смеси'])
+    )
+    dp.register_message_handler(
+        get_waterproofing,
+        Text(equals=['💧 Гидроизоляция', 'Гидроизоляция', 'гидроизоляция'])
+    )
+    dp.register_message_handler(
+        get_gypsum,
+        Text(equals=['🟥 Гипс строительный', 'Гипс строительный', 'гипс строительный'])
+    )
+    dp.register_message_handler(
+        get_glues,
+        Text(equals=['🟧 Клеевые составы', 'Клеевые составы', 'клеевые составы'])
+    )
+    dp.register_message_handler(
+        get_gypsum_glue,
+        Text(equals=['Гипсовые', 'гипсовые'])
+    )
+    dp.register_message_handler(
+        get_glue_for_blocks,
+        Text(equals=['Для блоков', 'для блоков'])
+    )
+    dp.register_message_handler(
+        get_glue_for_thermal_insulation_systems,
+        Text(equals=['Для систем теплоизоляции', 'для систем теплоизоляции'])
+    )
+    dp.register_message_handler(
+        get_facing,
+        Text(equals=['Облицовочные', 'облицовочные'])
+    )
+    dp.register_message_handler(
+        get_masonry_composition,
+        Text(equals=['🧱 Кладочные составы', 'Кладочные составы', 'кладочные составы'])
+    )
+    dp.register_message_handler(
+        get_koroed,
+        Text(equals=['🟨 Короед', 'Короед', 'короед'])
+    )
+    dp.register_message_handler(
+        get_kornik,
+        Text(equals=['🟩 Корник', 'Корник', 'корник'])
+    )
+    dp.register_message_handler(
+        get_self_leveling,
+        Text(equals=['🟫 Самонивелиры', 'Самонивелиры', 'самонивелиры'])
+    )
+    dp.register_message_handler(
+        get_creed_mix,
+        Text(equals=['🔴 Стяжки', 'Стяжки', 'стяжки'])
+    )
+    dp.register_message_handler(
+        get_cement,
+        Text(equals=['⚪ Цемент', 'Цемент', 'цемент'])
+    )
+    dp.register_message_handler(
+        get_putty,
+        Text(equals=['🟡 Шпатлевка', 'Шпатлевка', 'шпатлевка'])
+    )
+    dp.register_message_handler(
+        get_plaster,
+        Text(equals=['🟢 Штукатурка', 'Штукатурка', 'штукатурка'])
+    )
+    dp.register_message_handler(
+        get_shuba,
+        Text(equals=['🟣 Шуба', 'Шуба', 'шуба'])
+    )
+    dp.register_message_handler(
+        get_osb,
+        Text(equals=['OSB-плиты влагостойкие'])
+    )
+    dp.register_message_handler(
+        get_ppt_calculator,
+        Text(equals=['✅ Рассчитать пенопласт', 'Рассчитать пенопласт', 'рассчитать пенопласт'])
+    )
+    dp.register_message_handler(ppt_calculator)
