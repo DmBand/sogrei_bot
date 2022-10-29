@@ -653,6 +653,7 @@ ppt_calculator_text = f'❗ Для расчета пенопласта введ�
                       f'<b>ПРИМЕР:</b>\n' \
                       f'<code>15.5, 5, 20, А</code>\n\n' \
                       f'👆 <i>Текст выше можно скопировать в качестве шаблона, нажав на него 👌</i>\n\n' \
+                      f'<b>Для выхода из меню расчета пенопласта введите слово "<code>Выход</code>" ❌</b>\n\n' \
                       f'Введите ваши данные 👇'
 
 
@@ -665,61 +666,65 @@ async def get_ppt_calculator(message: types.Message):
 
 
 async def ppt_calculator(message: types.Message, state: FSMContext):
-    async with state.proxy() as dt:
-        # dt['give_info'] = message.
+    if message.text.lower() == 'выход':
+        await state.finish()
+        await message.answer(
+            text='Вы вышли из меню расчета пенопласта.'
+        )
+    else:
         try:
             data = message.text.split(',')
-            dt['give_info'] = data
             if len(data) != 4 \
                     or int(data[1]) not in ppt_thickness \
                     or int(data[2]) not in ppt_density \
                     or data[3].strip().upper() not in sheet_type:
                 raise ValueError
             if int(data[1]) == 1 and (int(data[2]) in (10, 15) or data[3].strip().upper() == 'Б'):
+                await state.finish()
                 await message.answer(
                     text='🙁 К сожалению, пенопласт толщиной 1 см\n'
                          'не может быть ниже <b>20</b> плотности\n'
                          'и только <b>листы без паза</b>...',
                     parse_mode='HTML'
                 )
-            square = float(data[0])
-            thickness = int(data[1])
-            density = int(data[2])
+            else:
+                square = float(data[0])
+                thickness = int(data[1])
+                density = int(data[2])
+                s_type = data[3].strip().upper()
+                # большие листы
+                num_of_large_sheets = math.ceil(square)
+                # маленькие листы
+                num_of_small_sheets = math.ceil(square * 2)
+                # объем
+                capacity = num_of_small_sheets * 0.5 * (thickness / 100)
+                price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
+                price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
+                await state.finish()
+                await message.answer(
+                    text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
+                         f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
+                         f'<i>Плотность:</i> <b>{density}</b>\n'
+                         f'<i>Тип листов:</i> <b>{"Без паза" if s_type == "А" else "С пазом"}</b>\n\n'
+                         f'📜 <i>Количество листов:</i>\n'
+                         f'<b>{num_of_large_sheets}шт</b> 1000*1000мм\n'
+                         f'<i>или</i>\n'
+                         f'<b>{num_of_small_sheets}шт</b> 1000*500мм\n\n'
+                         f'📦 <i>Объем:</i> <b>{"%.3f" % capacity}м3</b>\n\n'
+                         f'💵 <i>Примерная стоимость:</i>\n'
+                         f'<b>{"%.2f" % price} руб.</b>\n'
+                         f'<i>Примерная стоимость с учетом скидочной карты (3%):</i>\n'
+                         f'<b>{"%.2f" % (price - (price * 0.03))} руб.</b>\n\n'
+                         f'❗ Наличие листов нужного размера и количества\n'
+                         f'уточняйте по телефонам:\n'
+                         f'📞 +375297804352 <b>(МТС)</b>\n'
+                         f'📞 +375291990505 <b>(A1)</b>\n'
+                         f'📞 32-06-06 <b>(Городской)</b>',
+                    parse_mode='HTML'
+                )
         except (TypeError, ValueError):
-            answer = '❗ НЕКОРРЕКТНЫЙ ВВОД ❗\n' + ppt_calculator_text
+            answer = '<b>❗ НЕКОРРЕКТНЫЙ ВВОД ❗</b>\n\n' + ppt_calculator_text
             await message.answer(text=answer, parse_mode='HTML')
-        else:
-            s_type = data[3].strip().upper()
-            # большие листы
-            num_of_large_sheets = math.ceil(square)
-            # маленькие листы
-            num_of_small_sheets = math.ceil(square * 2)
-            # объем
-            capacity = num_of_small_sheets * 0.5 * (thickness / 100)
-            price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
-            price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
-            await state.finish()
-            await message.answer(
-                text=f'<i>Площадь:</i> <b>{square}м2</b>\n'
-                     f'<i>Толщина листа:</i> <b>{thickness}см</b>\n'
-                     f'<i>Плотность:</i> <b>{density}</b>\n'
-                     f'<i>Тип листов:</i> <b>{"Без паза" if s_type == "А" else "С пазом"}</b>\n\n'
-                     f'📜 <i>Количество листов:</i>\n'
-                     f'<b>{num_of_large_sheets}шт</b> 1000*1000мм\n'
-                     f'<i>или</i>\n'
-                     f'<b>{num_of_small_sheets}шт</b> 1000*500мм\n\n'
-                     f'📦 <i>Объем:</i> <b>{"%.3f" % capacity}м3</b>\n\n'
-                     f'💵 <i>Примерная стоимость:</i>\n'
-                     f'<b>{"%.2f" % price} руб.</b>\n'
-                     f'<i>Примерная стоимость с учетом скидочной карты (3%):</i>\n'
-                     f'<b>{"%.2f" % (price - (price * 0.03))} руб.</b>\n\n'
-                     f'❗ Наличие листов нужного размера и количества\n'
-                     f'уточняйте по телефонам:\n'
-                     f'📞 +375297804352 <b>(МТС)</b>\n'
-                     f'📞 +375291990505 <b>(A1)</b>\n'
-                     f'📞 32-06-06 <b>(Городской)</b>',
-                parse_mode='HTML'
-            )
 
 
 def register_client_handlers(dp: Dispatcher):
