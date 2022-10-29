@@ -1,4 +1,4 @@
-def get_price_for_one(price_per_cubic_metr):
+async def get_price_for_one(price_per_cubic_metr):
     ppt_price_for_one = {
         'ППТ-10-А':
             {

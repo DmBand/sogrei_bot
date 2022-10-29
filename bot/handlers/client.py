@@ -109,7 +109,7 @@ async def get_drywall(message: types.Message):
 
 
 async def get_refactory_drywall(message: types.Message):
-    answer = db.get_drywall('Огнеупорный')
+    answer = await db.get_drywall('Огнеупорный')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -117,7 +117,7 @@ async def get_refactory_drywall(message: types.Message):
 
 
 async def get_moisture_resistant_drywal(message: types.Message):
-    answer = db.get_drywall('Влагостойкий')
+    answer = await db.get_drywall('Влагостойкий')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -125,7 +125,7 @@ async def get_moisture_resistant_drywal(message: types.Message):
 
 
 async def get_simple_drywall(message: types.Message):
-    answer = db.get_drywall('Обычный')
+    answer = await db.get_drywall('Обычный')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -151,7 +151,7 @@ async def get_dowel(message: types.Message):
 
 
 async def get_steel_dowel(message: types.Message):
-    answer = db.get_dowel('Стальной гвоздь')
+    answer = await db.get_dowel('Стальной гвоздь')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -159,7 +159,7 @@ async def get_steel_dowel(message: types.Message):
 
 
 async def get_plastic_dowel(message: types.Message):
-    answer = db.get_dowel('Пластиковый гвоздь')
+    answer = await db.get_dowel('Пластиковый гвоздь')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -185,7 +185,7 @@ async def get_paints(message: types.Message):
 
 
 async def get_paints_taifun(message: types.Message):
-    answer = db.get_paints(description='Тайфун Мастер')
+    answer = await db.get_paints(description='Тайфун Мастер')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -213,7 +213,7 @@ async def get_paints_condor(message: types.Message):
 
 
 async def get_paints_condor_white_interiors(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Белые интерьеры'
     )
@@ -224,7 +224,7 @@ async def get_paints_condor_white_interiors(message: types.Message):
 
 
 async def get_paints_condor_ceiling(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Для потолков'
     )
@@ -235,7 +235,7 @@ async def get_paints_condor_ceiling(message: types.Message):
 
 
 async def get_paints_condor_kitchen(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Кухни и ванные'
     )
@@ -246,7 +246,7 @@ async def get_paints_condor_kitchen(message: types.Message):
 
 
 async def get_paints_condor_latex(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Латексная'
     )
@@ -257,7 +257,7 @@ async def get_paints_condor_latex(message: types.Message):
 
 
 async def get_paints_condor_front(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Фасады'
     )
@@ -268,7 +268,7 @@ async def get_paints_condor_front(message: types.Message):
 
 
 async def get_paints_condor_schools(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Condor',
         description2='Школы и офисы'
     )
@@ -297,7 +297,7 @@ async def get_paints_kapral(message: types.Message):
 
 
 async def get_paints_kapral_interior(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Kapral',
         description2='Интерьерная'
     )
@@ -308,7 +308,7 @@ async def get_paints_kapral_interior(message: types.Message):
 
 
 async def get_paints_kapral_washable(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Kapral',
         description2='Моющаяся'
     )
@@ -319,7 +319,7 @@ async def get_paints_kapral_washable(message: types.Message):
 
 
 async def get_paints_kapral_superwhite(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Kapral',
         description2='Супербелая'
     )
@@ -330,7 +330,7 @@ async def get_paints_kapral_superwhite(message: types.Message):
 
 
 async def get_paints_kapral_front(message: types.Message):
-    answer = db.get_paints(
+    answer = await db.get_paints(
         description='Kapral',
         description2='Фасадная'
     )
@@ -341,7 +341,7 @@ async def get_paints_kapral_front(message: types.Message):
 
 
 async def get_paints_malevanka(message: types.Message):
-    answer = db.get_paints(description='Malevanka')
+    answer = await db.get_paints(description='Malevanka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -349,7 +349,7 @@ async def get_paints_malevanka(message: types.Message):
 
 
 async def get_paints_sniezka(message: types.Message):
-    answer = db.get_paints(description='Sniezka')
+    answer = await db.get_paints(description='Sniezka')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -357,7 +357,7 @@ async def get_paints_sniezka(message: types.Message):
 
 
 async def get_mineral_wool(message: types.Message):
-    answer = db.get_mineral_wool()
+    answer = await db.get_mineral_wool()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -380,7 +380,7 @@ async def get_ppt_price(message: types.Message):
 
 
 async def get_ppt_price_per_cubic_meter(message: types.Message):
-    answer = db.get_ppt_cubic_meter()
+    answer = await db.get_ppt_cubic_meter()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -388,7 +388,7 @@ async def get_ppt_price_per_cubic_meter(message: types.Message):
 
 
 async def get_ppt_price_for_one(message: types.Message):
-    answer = db.get_ppt_one_sheet()
+    answer = await db.get_ppt_one_sheet()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -396,7 +396,7 @@ async def get_ppt_price_for_one(message: types.Message):
 
 
 async def get_profile(message: types.Message):
-    answer = db.get_profile()
+    answer = await db.get_profile()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -404,7 +404,7 @@ async def get_profile(message: types.Message):
 
 
 async def get_fiberglass_mesh(message: types.Message):
-    answer = db.get_fiberglass_mesh()
+    answer = await db.get_fiberglass_mesh()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -428,7 +428,7 @@ async def get_steel(message: types.Message):
 
 
 async def get_fittings(message: types.Message):
-    answer = db.get_steel(description='Арматура')
+    answer = await db.get_steel(description='Арматура')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -436,7 +436,7 @@ async def get_fittings(message: types.Message):
 
 
 async def get_pipe(message: types.Message):
-    answer = db.get_steel(description='Трубы профильные')
+    answer = await db.get_steel(description='Трубы профильные')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -444,7 +444,7 @@ async def get_pipe(message: types.Message):
 
 
 async def get_corner(message: types.Message):
-    answer = db.get_steel(description='Уголок стальной')
+    answer = await db.get_steel(description='Уголок стальной')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -477,7 +477,7 @@ async def get_dry_mixes(message: types.Message):
 
 
 async def get_waterproofing(message: types.Message):
-    answer = db.get_dry_mixes(description='Гидроизоляция')
+    answer = await db.get_dry_mixes(description='Гидроизоляция')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -485,7 +485,7 @@ async def get_waterproofing(message: types.Message):
 
 
 async def get_gypsum(message: types.Message):
-    answer = db.get_dry_mixes(description='Гипс строительный')
+    answer = await db.get_dry_mixes(description='Гипс строительный')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -514,7 +514,7 @@ async def get_glues(message: types.Message):
 
 
 async def get_gypsum_glue(message: types.Message):
-    answer = db.get_dry_mixes(
+    answer = await db.get_dry_mixes(
         description='Клеевые составы',
         description2='Гипсовые'
     )
@@ -525,7 +525,7 @@ async def get_gypsum_glue(message: types.Message):
 
 
 async def get_glue_for_blocks(message: types.Message):
-    answer = db.get_dry_mixes(
+    answer = await db.get_dry_mixes(
         description='Клеевые составы',
         description2='Для блоков'
     )
@@ -536,7 +536,7 @@ async def get_glue_for_blocks(message: types.Message):
 
 
 async def get_glue_for_thermal_insulation_systems(message: types.Message):
-    answer = db.get_dry_mixes(
+    answer = await db.get_dry_mixes(
         description='Клеевые составы',
         description2='Для систем теплоизоляции'
     )
@@ -547,7 +547,7 @@ async def get_glue_for_thermal_insulation_systems(message: types.Message):
 
 
 async def get_facing(message: types.Message):
-    answer = db.get_dry_mixes(
+    answer = await db.get_dry_mixes(
         description='Клеевые составы',
         description2='Облицовочные'
     )
@@ -558,7 +558,7 @@ async def get_facing(message: types.Message):
 
 
 async def get_masonry_composition(message: types.Message):
-    answer = db.get_dry_mixes(description='Кладочные составы')
+    answer = await db.get_dry_mixes(description='Кладочные составы')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -566,7 +566,7 @@ async def get_masonry_composition(message: types.Message):
 
 
 async def get_koroed(message: types.Message):
-    answer = db.get_dry_mixes(description='Короед')
+    answer = await db.get_dry_mixes(description='Короед')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -574,7 +574,7 @@ async def get_koroed(message: types.Message):
 
 
 async def get_kornik(message: types.Message):
-    answer = db.get_dry_mixes(description='Корник')
+    answer = await db.get_dry_mixes(description='Корник')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -582,7 +582,7 @@ async def get_kornik(message: types.Message):
 
 
 async def get_self_leveling(message: types.Message):
-    answer = db.get_dry_mixes(description='Самонивелиры')
+    answer = await db.get_dry_mixes(description='Самонивелиры')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -590,7 +590,7 @@ async def get_self_leveling(message: types.Message):
 
 
 async def get_creed_mix(message: types.Message):
-    answer = db.get_dry_mixes(description='Стяжки')
+    answer = await db.get_dry_mixes(description='Стяжки')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -598,7 +598,7 @@ async def get_creed_mix(message: types.Message):
 
 
 async def get_cement(message: types.Message):
-    answer = db.get_dry_mixes(description='Цемент')
+    answer = await db.get_dry_mixes(description='Цемент')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -606,7 +606,7 @@ async def get_cement(message: types.Message):
 
 
 async def get_putty(message: types.Message):
-    answer = db.get_dry_mixes(description='Шпатлевка')
+    answer = await db.get_dry_mixes(description='Шпатлевка')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -614,7 +614,7 @@ async def get_putty(message: types.Message):
 
 
 async def get_plaster(message: types.Message):
-    answer = db.get_dry_mixes(description='Штукатурка')
+    answer = await db.get_dry_mixes(description='Штукатурка')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -622,7 +622,7 @@ async def get_plaster(message: types.Message):
 
 
 async def get_shuba(message: types.Message):
-    answer = db.get_dry_mixes(description='Шуба')
+    answer = await db.get_dry_mixes(description='Шуба')
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -630,7 +630,7 @@ async def get_shuba(message: types.Message):
 
 
 async def get_osb(message: types.Message):
-    answer = db.get_osb()
+    answer = await db.get_osb()
     await message.answer(
         text=answer,
         parse_mode='HTML'
@@ -698,7 +698,7 @@ async def ppt_calculator(message: types.Message, state: FSMContext):
                 num_of_small_sheets = math.ceil(square * 2)
                 # объем
                 capacity = num_of_small_sheets * 0.5 * (thickness / 100)
-                price_per_cubic_metr = db.get_ppt_cubic_meter_for_calculator()
+                price_per_cubic_metr = await db.get_ppt_cubic_meter_for_calculator()
                 price = round(price_per_cubic_metr[f'ППТ-{density}-{s_type}'] * capacity, 2)
                 await state.finish()
                 await message.answer(

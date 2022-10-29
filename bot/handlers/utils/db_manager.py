@@ -13,7 +13,7 @@ class DBHandler:
     def edit_stock(self):
         pass
 
-    def get_categories(self) -> list:
+    async def get_categories(self) -> list:
         """ Категории товаров """
 
         conn = sqlite3.connect(self.db_name)
@@ -26,7 +26,7 @@ class DBHandler:
         categories = [cat[0] for cat in data]
         return categories
 
-    def get_drywall(self, description: str = None) -> str or None:
+    async def get_drywall(self, description: str = None) -> str or None:
         """ Гипсокартон """
 
         types = [
@@ -53,7 +53,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_dowel(self, description: str = None) -> str or None:
+    async def get_dowel(self, description: str = None) -> str or None:
         """ Дюбеля для теплоизоляции """
 
         types = [
@@ -79,7 +79,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_paints(self, description: str = None, description2: str = None) -> str or None:
+    async def get_paints(self, description: str = None, description2: str = None) -> str or None:
         """ Краски """
 
         types = [
@@ -118,7 +118,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_mineral_wool(self) -> str:
+    async def get_mineral_wool(self) -> str:
         """ Минеральная вата """
 
         conn = sqlite3.connect(self.db_name)
@@ -137,7 +137,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_ppt_cubic_meter(self) -> str:
+    async def get_ppt_cubic_meter(self) -> str:
         """ Пенопласт за 1 м3 """
 
         conn = sqlite3.connect(self.db_name)
@@ -157,7 +157,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_ppt_one_sheet(self) -> str:
+    async def get_ppt_one_sheet(self) -> str:
         """ Пенопласт за 1 лист """
 
         conn = sqlite3.connect(self.db_name)
@@ -212,7 +212,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_ppt_cubic_meter_for_calculator(self) -> dict:
+    async def get_ppt_cubic_meter_for_calculator(self) -> dict:
         """ Для расчета пенопласта """
 
         conn = sqlite3.connect(self.db_name)
@@ -225,7 +225,7 @@ class DBHandler:
         conn.close()
         return prices_per_cubic_meter
 
-    def get_profile(self) -> str:
+    async def get_profile(self) -> str:
         """ Профиль для гипсокартона """
 
         conn = sqlite3.connect(self.db_name)
@@ -245,7 +245,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_fiberglass_mesh(self) -> str:
+    async def get_fiberglass_mesh(self) -> str:
         """ Сетка штукатурная """
 
         conn = sqlite3.connect(self.db_name)
@@ -265,7 +265,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_steel(self, description: str = None) -> str or None:
+    async def get_steel(self, description: str = None) -> str or None:
         """ Сталь """
 
         types = [
@@ -297,7 +297,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_dry_mixes(self, description: str = None, description2: str = None) -> str or None:
+    async def get_dry_mixes(self, description: str = None, description2: str = None) -> str or None:
         """ Краски """
 
         types = [
@@ -343,7 +343,7 @@ class DBHandler:
         conn.close()
         return answer
 
-    def get_osb(self) -> str:
+    async def get_osb(self) -> str:
         """ OSB """
 
         conn = sqlite3.connect(self.db_name)
