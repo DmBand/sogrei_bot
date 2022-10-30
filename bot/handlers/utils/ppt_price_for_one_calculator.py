@@ -1,4 +1,9 @@
-async def get_price_for_one(price_per_cubic_metr):
+async def get_price_for_one(price_per_cubic_metr: dict) -> dict:
+    """
+    Возвращает словарь со стоимостями пенопласта
+    в зависимости от плотности и размеров листа
+    """
+
     ppt_price_for_one = {
         'ППТ-10-А':
             {
