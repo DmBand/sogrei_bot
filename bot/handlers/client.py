@@ -1,5 +1,3 @@
-# TODO Не работает расчет пенопласта
-
 import math
 
 from aiogram import (Dispatcher,
@@ -639,7 +637,7 @@ async def get_osb(message: types.Message):
 
 class FSMPPTCalculator(StatesGroup):
     give_info = State()
-    get_data = State()
+    # get_data = State()
 
 
 ppt_thickness = (1, 2, 3, 4, 5, 7, 8, 10)
