@@ -169,7 +169,7 @@ class DBHandler:
         prices_per_cubic_meter = {i[0]: i[1] for i in row.fetchall()}
         answer = '💵 Цена за 1 лист: 💵\n\n' \
                  '📏 Размер листа: 1000*500мм:\n'
-        data = get_price_for_one(prices_per_cubic_meter)
+        data = await get_price_for_one(prices_per_cubic_meter)
 
         answer += f'\nПлотность: 10-A\n\n'
         for p in data['ППТ-10-А']['1000*500мм']:
